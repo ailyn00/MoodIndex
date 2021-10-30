@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">My canvas</string>
+    <string name="app_name">Mood Index</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="logo">Logo</string>
+    <string name="login">Login</string>
+
+    <string name="register">Register</string>
+    <string name="Reg_email">Email</string>
+    <string name="Reg_username">Username</string>
+    <string name="Reg_password">Password</string>
+    <string name="Reg_user">Register User</string>
+
+
+
+
 </resources>

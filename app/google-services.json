@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "26022555610",
+    "project_id": "mood-index",
+    "storage_bucket": "mood-index.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26022555610:android:904f56a2ea4f7da4751ae3",
+        "android_client_info": {
+          "package_name": "com.example.mycanvas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26022555610-qpace8kil2bdjfae7u9dt9amk02a7fh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO_4tPsRL1ytL3qriDEvS3ct3qs4Dr9WA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26022555610-qpace8kil2bdjfae7u9dt9amk02a7fh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

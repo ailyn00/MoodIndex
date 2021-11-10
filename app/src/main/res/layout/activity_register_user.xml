@@ -2,82 +2,132 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterUser">
+    tools:context=".MainActivity">
 
-    <com.google.android.material.textfield.TextInputLayout
-
-        android:id="@+id/Reg_PasswordLayout"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        app:boxBackgroundColor="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Reg_Username"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="@color/purple_500">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/Reg_Password"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:hint="@string/Reg_password"
-            android:inputType="textPassword"
-            tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/LogoReg"
-        android:layout_width="177dp"
-        android:layout_height="178dp"
-        android:layout_marginTop="48dp"
-        android:contentDescription="@string/logo"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="349dp"
+        android:layout_height="665dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher"
-        tools:ignore="ImageContrastCheck,ImageContrastCheck"
-        tools:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <EditText
-        android:id="@+id/Reg_email"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="40dp"
-        android:autofillHints="no"
-        android:ems="10"
-        android:hint="@string/Reg_email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LogoReg" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="177dp"
+            android:layout_height="178dp"
+            android:layout_marginTop="48dp"
+            android:contentDescription="@string/logo"
+            app:srcCompat="@mipmap/ic_launcher"
+            tools:ignore="ImageContrastCheck,ImageContrastCheck"
+            tools:srcCompat="@mipmap/ic_launcher" />
 
-    <EditText
-        android:id="@+id/Reg_Username"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
-        android:autofillHints="no"
-        android:ems="10"
-        android:hint="@string/Reg_username"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Reg_email"
-        tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
+        <TextView
+            android:id="@+id/CreateAcc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/CreateAcc"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/Reg_User"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/Reg_user"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Reg_PasswordLayout" />
+        <TextView
+            android:id="@+id/login_subs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:text="@string/CreateAcc_subs" />
+
+        <EditText
+            android:id="@+id/Reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:autofillHints="no"
+            android:background="@drawable/edit_text_border"
+            android:drawableEnd="@drawable/ic_email_black_foreground"
+            android:drawablePadding="5dp"
+            android:hint="@string/Reg_email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp"
+            tools:ignore="TextContrastCheck,TextContrastCheck" />
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/Reg_PasswordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:boxBackgroundColor="@android:color/transparent"
+
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/purple">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Password_Layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/edit_text_border"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                tools:ignore="TextContrastCheck,TextContrastCheck,TextContrastCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/Gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+
+            <RadioButton
+                android:id="@+id/Reg_Male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:text="@string/Reg_Male" />
+
+            <RadioButton
+                android:id="@+id/Reg_Female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_border"
+                android:text="@string/Reg_Female" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/Reg_Age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edit_text_border"
+            android:ems="10"
+            android:hint="@string/Reg_Age"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minHeight="48dp" />
+
+        <Button
+            android:id="@+id/Reg_User"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:minHeight="48dp"
+            android:text="@string/Reg_User"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/green" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

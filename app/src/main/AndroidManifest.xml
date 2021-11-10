@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCanvas">
         <activity
+            android:name=".HomePage"
+            android:exported="true" />
+        <activity
             android:name=".RegisterUser"
             android:exported="true" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

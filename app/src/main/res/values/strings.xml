@@ -1,18 +1,25 @@
 <resources>
     <string name="app_name">Mood Index</string>
 
-    <string name="username">Username</string>
-    <string name="password">Password</string>
     <string name="logo">Logo</string>
+    <string name="Login_subtitle">Please sign in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+
     <string name="login">Login</string>
 
-    <string name="register">Register</string>
+    <string name="SignUp_Text1">Don\'t have an account yet?</string>
+    <string name="SignUp">Sign up now!</string>
+
+    <string name="CreateAcc">Create Account</string>
+    <string name="CreateAcc_subs">Please fill in the blank fields</string>
     <string name="Reg_email">Email</string>
-    <string name="Reg_username">Username</string>
     <string name="Reg_password">Password</string>
-    <string name="Reg_user">Register User</string>
 
-
+    <string name="Reg_Male">Male</string>
+    <string name="Reg_Female">Female</string>
+    <string name="Reg_Age">Age</string>
+    <string name="Reg_User">Register</string>
 
 
 </resources>

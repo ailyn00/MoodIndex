@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="SquareColor">#F321C5</color>
     <color name="text_shadow">#7F000000</color>
+    <color name="red">#FF0000</color>
 </resources>

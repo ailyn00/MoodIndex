@@ -17,7 +17,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +35,14 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     private EditText editTextEmail, editTextAge;
     private TextInputEditText editTextPassword;
     private RadioButton male, female;
-
-    private String Usergender;
-
-    String userID;
+    private FirebaseServices firebaseServices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        firebaseServices = new FirebaseServices();
+
         setContentView(R.layout.activity_register_user);
 
         registerUser = (Button) findViewById(R.id.Reg_User);
@@ -47,7 +54,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
         male = findViewById(R.id.Reg_Male);
         female = findViewById(R.id.Reg_Female);
-
 
     }
 
@@ -66,6 +72,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         String age = editTextAge.getText().toString();
         String m1 = male.getText().toString().trim();
         String m2 = female.getText().toString().trim();
+        String userGender  = "";
 
         //validate
         if(email.isEmpty()){
@@ -99,14 +106,32 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
 
 
         if(male.isChecked()){
-            Usergender = m1;
+            userGender = m1;
         }
 
         if(female.isChecked()){
-            Usergender = m2;
+            userGender = m2;
         }
 
+        // Create User Map
+        Map<String, Object> user = new HashMap<>();
+        user.put("email", email);
+        user.put("gender", userGender);
+        user.put("age", age);
 
+        // Put the user data in the database.
+        firebaseServices.registerUser(user, password,new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+                Toast.makeText(RegisterUser.this, msg, Toast.LENGTH_LONG).show();
+            }
 
+            @Override
+            public void onSuccess(Object response) {
+                Log.d(TAG, (String) response);
+                Toast.makeText(RegisterUser.this, "Successfully register, please login!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(RegisterUser.this, MainActivity.class));
+            }
+        });
     }
 }

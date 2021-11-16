@@ -18,11 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,14 +27,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextInputEditText editTextPassword;
     private Button Login;
 
-    private FirebaseAuth mAuth;
+    private FirebaseServices firebaseServices;
+    private boolean isLogged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
 
         //initialise
         Login = (Button) findViewById(R.id.login);
@@ -46,9 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         editTextemail = (EditText) findViewById(R.id.Email);
         editTextPassword = (TextInputEditText) findViewById(R.id.Password);
-        mAuth = FirebaseAuth.getInstance();
+
+        firebaseServices = new FirebaseServices();
 
         TextView textView = findViewById(R.id.SignUp);
+
+        // Check if user already login
+        isLoggedIn();
 
         //make "Sign Up clickable"
 
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ClickableSpan clickableSpan1 = new ClickableSpan() {
             @Override
             public void onClick(@NonNull View view) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.SignUp:
                         startActivity(new Intent(MainActivity.this, RegisterUser.class));
                         break;
@@ -68,17 +70,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        ss.setSpan(clickableSpan1,0,8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(clickableSpan1, 0, 8, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 
-
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isLoggedIn();
     }
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.login:
                 userLogin();
                 break;
@@ -90,40 +96,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = editTextPassword.getText().toString().trim();
 
         //validation
-        if(email.isEmpty()){
+        if (email.isEmpty()) {
             editTextemail.setError("Email is required");
             editTextemail.requestFocus();
             return;
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             editTextemail.setError("Please provide valid email!");
             editTextemail.requestFocus();
             return;
         }
 
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             editTextPassword.setError("Password is required");
             editTextPassword.requestFocus();
             return;
         }
 
-        if(password.length() < 6){
+        if (password.length() < 6) {
             editTextPassword.setError("Password should be more than 6 characters!");
             editTextPassword.requestFocus();
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        firebaseServices.userLogin(email, password, new FirebaseServices.FirebaseServicesListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    //redirect to homepage
-                    startActivity(new Intent(MainActivity.this, HomePage.class));
+            public void onError(String msg) {
+                Toast.makeText(MainActivity.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
+            }
 
-                }
-                else{
-                    Toast.makeText(MainActivity.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
+            @Override
+            public void onSuccess(Object response) {
+                startActivity(new Intent(MainActivity.this, HomePage.class));
+            }
+        });
+
+    }
+
+    private void isLoggedIn() {
+        firebaseServices.isLoggedIn(new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+                Toast.makeText(MainActivity.this, "Failed to check authentication! Please check your credentials", Toast.LENGTH_LONG).show();
+                isLogged = false;
+            }
+
+            @Override
+            public void onSuccess(Object response) {
+                isLogged = (boolean) response;
+                if(isLogged){
+                    startActivity(new Intent(MainActivity.this, HomePage.class));
                 }
             }
         });

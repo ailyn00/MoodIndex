@@ -8,18 +8,16 @@
 
 
     <TextView
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mood index"
-        android:textSize="30dp"
-
-        android:elevation="500dp"
         android:layout_alignParentTop="true"
+        android:background="@drawable/corner"
         android:gravity="center"
-        android:background="@drawable/corner" />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/app_name"
+        android:textSize="30sp" />
 
 
     <ScrollView
@@ -62,7 +60,7 @@
                         android:id="@+id/avgMoodTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Their Mood"
+                        android:text="@string/Their_Mood"
                         android:textSize="40sp"
                         android:textStyle="bold" />
 
@@ -70,7 +68,7 @@
                         android:id="@+id/avgMoodDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="This shows how others feel about  the current market!"
+                        android:text="@string/Their_Mood_subs"
                         android:textSize="20sp" />
 
                     <com.example.mycanvas.MoodSeekbar
@@ -78,18 +76,19 @@
                         android:layout_width="278dp"
                         android:layout_height="359dp"
                         android:layout_gravity="center_horizontal"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:max="200"
                         android:progress="100"
                         android:progressDrawable="@android:color/transparent"
                         android:rotation="-90"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true" />
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <TextView
                         android:id="@+id/avgPctgTxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0%"
+                        android:text="@string/avgPctg_text"
                         android:textAlignment="center"
                         android:textSize="20sp" />
 
@@ -122,7 +121,7 @@
                         android:id="@+id/avgMoodBeforeTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Their Average Mood"
+                        android:text="@string/TheirAvg_Mood"
                         android:textSize="40sp"
                         android:textStyle="bold" />
 
@@ -130,7 +129,7 @@
                         android:id="@+id/avgMoodBeforeDesc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="This shows how others feel about the market past 15 days!"
+                        android:text="@string/TheirAvg_Mood_subs"
                         android:textSize="20sp" />
 
                     <com.example.mycanvas.MoodSeekbar
@@ -147,7 +146,7 @@
                         android:id="@+id/avgPctgBeforeTxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0%"
+                        android:text="@string/avgPctgBefore_text"
                         android:textAlignment="center"
                         android:textSize="20sp" />
 
@@ -164,26 +163,26 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/testBtn1"
+        android:id="@+id/Personal_Tracker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginBottom="60dp"
-        android:text="Personal Tracker"
+        android:text="@string/Personal_Tracker"
 
         android:layout_alignParentBottom="true" />
 
 
     <Button
-        android:id="@+id/testBtn2"
+        android:id="@+id/SignOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Out"
+        android:text="@string/SignOut"
         android:layout_alignParentBottom="true"
-        android:layout_alignBaseline="@+id/testBtn1"
-        android:layout_toEndOf="@+id/testBtn1"
+        android:layout_alignBaseline="@+id/Personal_Tracker"
+        android:layout_toEndOf="@+id/Personal_Tracker"
         android:layout_marginLeft="50dp"
-        app:layout_constraintStart_toEndOf="@+id/testBtn1"
+        app:layout_constraintStart_toEndOf="@+id/Personal_Tracker"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

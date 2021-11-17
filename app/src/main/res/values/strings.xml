@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Mood Index</string>
 
+    <!-- String for Login and Registration-->
     <string name="logo">Logo</string>
     <string name="Login_subtitle">Please sign in to continue</string>
     <string name="email">Email</string>
@@ -20,6 +21,27 @@
     <string name="Reg_Female">Female</string>
     <string name="Reg_Age">Age</string>
     <string name="Reg_User">Register</string>
+
+    <!-- String for Home Page-->
+    <string name="Their_Mood">Their Mood</string>
+    <string name="Their_Mood_subs">This shows how others feel about  the current market!</string>
+    <string name="avgPctg_text">0%</string>
+
+    <string name="TheirAvg_Mood">Their Average Mood</string>
+    <string name="TheirAvg_Mood_subs">This shows how others feel about the market past 15 days!</string>
+    <string name="avgPctgBefore_text">0%</string>
+
+    <string name="SignOut">Sign Out</string>
+
+    <!-- String for Personal Tracker-->
+    <string name="Personal_Tracker">Personal Tracker</string>
+    <string name="Your_Mood">Your Mood</string>
+    <string name="Your_Mood_subs">How do you feel about market today? Swipe the candle bar up and down to express your mood.</string>
+    <string name="mood_pctg">0%</string>
+    <string name="Submit">Submit</string>
+    
+    <string name="Your_PastMoods">Your Mood In Past Days</string>
+    <string name="Your_PastMoodsPctg">0%</string>
 
 
 </resources>

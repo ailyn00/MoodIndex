@@ -1,7 +1,6 @@
 package com.example.mycanvas;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +8,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener{
 
@@ -116,7 +112,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             case R.id.moodSeekBar:
                 if(progressCalculation(i) <= 0 && progressCalculation(i) >= -100){
                     submitBtn.setBackgroundTintList(this.getResources().getColorStateList(R.color.red));
-                    pctgTxt.setText("-" + Integer.toString(progressCalculation(i)) + "%");
+                    pctgTxt.setText(Integer.toString(progressCalculation(i)) + "%");
                 } else {
                     submitBtn.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
                     pctgTxt.setText("+" + Integer.toString(progressCalculation(i)) + "%");

@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalTracker">
+    tools:context=".PersonalTracker"
+    >
 
     <TextView
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mood index"
-        android:textSize="30dp"
         android:layout_alignParentTop="true"
+        android:background="@drawable/corner"
         android:gravity="center"
-        android:background="@drawable/corner"/>
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="@string/app_name"
+        android:textSize="30sp" />
     <com.example.mycanvas.LockableScrollView
         android:layout_below="@+id/header"
         android:id="@+id/lockableScrollPersonal"
@@ -56,16 +57,16 @@
                         android:id="@+id/moodBarTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your Mood"
-                        android:textSize="40dp"
+                        android:text="@string/Your_Mood"
+                        android:textSize="40sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/moodBarDescTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="How do you feel about market today? Swipe the candle bar up and down to express your mood."
-                        android:textSize="20dp" />
+                        android:text="@string/Your_Mood_subs"
+                        android:textSize="20sp" />
 
                     <com.example.mycanvas.MoodSeekbar
                         android:id="@+id/moodSeekBar"
@@ -84,15 +85,15 @@
                         android:layout_width="171dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="0%"
+                        android:text="@string/mood_pctg"
                         android:textAlignment="center"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"/>
 
                     <Button
                         android:id="@+id/moodSbmtBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="SUBMIT" />
+                        android:text="@string/Submit" />
 
                 </LinearLayout>
 
@@ -117,16 +118,16 @@
                         android:id="@+id/moodBarTitleBefore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your Mood In Past Days"
-                        android:textSize="40dp"
+                        android:text=""
+                        android:textSize="40sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/moodBarDescBeforeTxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Your past 15 days of mood."
-                        android:textSize="20dp" />
+                        android:text="@string/Your_PastMoods"
+                        android:textSize="20sp" />
 
                     <com.example.mycanvas.MoodSeekbar
                         android:id="@+id/moodSeekBarBefore"
@@ -145,7 +146,7 @@
                         android:layout_width="171dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:text="0%"
+                        android:text="@string/Your_PastMoodsPctg"
                         android:textAlignment="center"
                         android:textSize="20sp" />
 

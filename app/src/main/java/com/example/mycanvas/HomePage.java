@@ -39,11 +39,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         // Check if user is logged in or not
         isLoggedIn();
 
-        Button testBtn1 = findViewById(R.id.testBtn1);
-        Button testBtn2 = findViewById(R.id.testBtn2);
+        Button PersonalTracker = findViewById(R.id.Personal_Tracker);
+        Button SignOut = findViewById(R.id.SignOut);
 
-        testBtn1.setOnClickListener(this);
-        testBtn2.setOnClickListener(this);
+        PersonalTracker.setOnClickListener(this);
+        SignOut.setOnClickListener(this);
 
         avgMoodSeekBar = findViewById(R.id.avgMoodSeekBar);
         avgPctgTxt = findViewById(R.id.avgPctgTxt);
@@ -118,10 +118,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.testBtn1:
+            case R.id.Personal_Tracker:
                 startActivity(new Intent(HomePage.this, PersonalTracker.class));
                 break;
-            case R.id.testBtn2:
+            case R.id.SignOut:
                 firebaseServices.userSignOut(new FirebaseServices.FirebaseServicesListener() {
                     @Override
                     public void onError(String msg) {

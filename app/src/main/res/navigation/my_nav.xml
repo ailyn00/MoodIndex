@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homePage">
+
+    <activity
+        android:id="@+id/homePage"
+        android:name="com.example.mycanvas.HomePage"
+        android:label="activity_home_page"
+        tools:layout="@layout/activity_home_page" />
+    <activity
+        android:id="@+id/settings"
+        android:name="com.example.mycanvas.settings"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
+    <activity
+        android:id="@+id/analytics"
+        android:name="com.example.mycanvas.analytics"
+        android:label="activity_analytics"
+        tools:layout="@layout/activity_analytics" />
+</navigation>

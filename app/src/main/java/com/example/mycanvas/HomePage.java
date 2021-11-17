@@ -1,14 +1,18 @@
 package com.example.mycanvas;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
     FirebaseServices firebaseServices = new FirebaseServices();
@@ -55,6 +59,50 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         // Set Average Seekbar is disable (So Client cannot change the view)
         avgMoodSeekBar.setEnabled(false);
         avgMoodSeekBarBefore.setEnabled(false);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.homePage);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
+
+                    case  R.id.homePage:
+
+                        return true;
+
+
+
+
+
+                    case R.id.analytics:
+                        startActivity(new Intent(getApplicationContext(),analytics.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(),settings.class));
+                        overridePendingTransition(0,0);
+                        return  true;
+
+                }
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
     @Override
     protected void onResume() {

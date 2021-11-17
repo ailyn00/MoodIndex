@@ -1,5 +1,6 @@
 package com.example.mycanvas;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.SeekBar;
 
+@SuppressLint("AppCompatCustomView")
 public class MoodSeekbar extends SeekBar {
     private Rect rect;
     private Paint paint ;

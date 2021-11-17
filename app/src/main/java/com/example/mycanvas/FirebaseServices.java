@@ -33,6 +33,7 @@ public class FirebaseServices {
     private FirebaseAuth mAuth;
     private FirebaseFirestore fStore;
 
+
     public FirebaseServices() {
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -135,7 +136,7 @@ public class FirebaseServices {
             Map<String, Object> mood = new HashMap<>();
             mood.put("user_id", mAuth.getCurrentUser().getUid());
             mood.put("value", val);
-            mood.put("time", new Timestamp(new Date()));
+            mood.put("time", new Timestamp(new Date())); // Need to be generalized using UTC+8?
 
             fStore.collection("user_moods")
                     .add(mood)
@@ -162,8 +163,8 @@ public class FirebaseServices {
         // Handle firebase service to get user mood
         FirebaseUser user = mAuth.getCurrentUser();
         fStore.collection("user_moods").whereEqualTo("user_id", user.getUid())
-                .whereGreaterThanOrEqualTo("time", atStartOfDay(new Date()))
-                .whereLessThanOrEqualTo("time", atEndOfDay(new Date()))
+                .whereGreaterThanOrEqualTo("time", atStartOfDay(new Date())) // Need to be generalized using UTC+8?
+                .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -174,7 +175,33 @@ public class FirebaseServices {
                         firebaseServicesListener.onSuccess(userMood);
                     }
                 } else {
-                    firebaseServicesListener.onError("[FIREBASE SERVICE] Failed to fetch \"Mood Value\" today!");
+                    firebaseServicesListener.onError("[FIREBASE SERVICE] Failed to fetch \"Mood Value\" for today!");
+                }
+            }
+        });
+    }
+
+    public void usersMoodAverage(FirebaseServicesListener firebaseServicesListener){
+        fStore.collection("user_moods")
+                .whereGreaterThanOrEqualTo("time", atStartOfDay(new Date())) // Need to be generalized using UTC+8?
+                .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int averageMood = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map userMood = (Map) document.getData();
+                        averageMood += (int) (long) userMood.get("value");
+                    }
+                    if(task.getResult().size() > 0){
+                        averageMood /= task.getResult().size();
+                    } else {
+                        averageMood = 0;
+                    }
+                    firebaseServicesListener.onSuccess(averageMood);
+                } else {
+                    firebaseServicesListener.onError("[FIREBASE SERVICE] Failed to fetch \"Average User Mood Value\" for today!");
                 }
             }
         });

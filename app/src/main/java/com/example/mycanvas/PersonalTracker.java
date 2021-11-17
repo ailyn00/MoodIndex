@@ -40,11 +40,17 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         moodBar.setOnSeekBarChangeListener(this);
         submitBtn.setOnClickListener(this);
 
-        // Fetch State
+        // Fetch State on create
         fetchPersonalData();
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Fetch personal state data on resume
+        fetchPersonalData();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -79,8 +85,12 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         switch(view.getId()){
             case R.id.moodSbmtBtn:
                 boolean update = false;
-                if(userMood != null) update = true;
-                firebaseServices.userMoodChange(moodBar.getProgress(), (String) userMood.get("id"), update, new FirebaseServices.FirebaseServicesListener() {
+                String id = "";
+                if(userMood != null) {
+                    update = true;
+                    id = (String) userMood.get("id");
+                }
+                firebaseServices.userMoodChange(moodBar.getProgress(), id, update, new FirebaseServices.FirebaseServicesListener() {
                     @Override
                     public void onError(String msg) {
                         Log.w("[FIREBASE SERVICE]", msg);
@@ -107,6 +117,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         firebaseServices.userMoodFetch(new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
+                userMood = null;
                 Toast.makeText(PersonalTracker.this, msg, Toast.LENGTH_SHORT).show();
             }
 

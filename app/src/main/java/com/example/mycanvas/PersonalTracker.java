@@ -1,9 +1,11 @@
 package com.example.mycanvas;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +15,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Map;
 import java.util.concurrent.locks.Lock;
@@ -64,7 +69,37 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Fetch State on create
         fetchPersonalData();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.homePage);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId())
+                {
 
+                    case  R.id.homePage:
+                        startActivity(new Intent(getApplicationContext(), HomePage.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+
+
+
+
+                    case R.id.analytics:
+                        startActivity(new Intent(getApplicationContext(),analytics.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(),settings.class));
+                        overridePendingTransition(0,0);
+                        return  true;
+
+                }
+                return false;
+            }
+        });
     }
 
     @Override

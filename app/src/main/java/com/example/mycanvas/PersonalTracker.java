@@ -4,8 +4,11 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,8 +17,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
 
-public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener{
+public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener{
 
     // Variables
     private FirebaseServices firebaseServices;
@@ -24,6 +28,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private TextView pctgTxt;
     private Button submitBtn;
     private Map userMood;
+
+    private LockableScrollView lockableScrollView;
 
     private SeekBar moodBarBefore;
     private TextView pctgBeforeTxt;
@@ -40,6 +46,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize Variables
         firebaseServices = new FirebaseServices();
+
+        lockableScrollView = (LockableScrollView) findViewById(R.id.lockableScrollPersonal);
 
         moodBar = findViewById(R.id.moodSeekBar);
         pctgTxt = findViewById(R.id.moodPctTxt);
@@ -165,5 +173,14 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+            lockableScrollView.setScrollingEnabled(false);
+        else if (event.getAction() == MotionEvent.ACTION_UP)
+            lockableScrollView.setScrollingEnabled(false);
+        return false;
     }
 }

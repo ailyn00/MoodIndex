@@ -7,13 +7,14 @@
     tools:context=".PersonalTracker">
 
 
-    <ScrollView
+    <com.example.mycanvas.LockableScrollView
+        android:id="@+id/lockableScrollPersonal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,11 +29,10 @@
                 android:id="@+id/moodBarCard"
                 android:layout_width="380dp"
                 android:layout_height="532dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:layout_gravity="center_horizontal"
-                >
+                app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,11 +90,10 @@
                 android:id="@+id/moodBarCardBefore"
                 android:layout_width="380dp"
                 android:layout_height="532dp"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:layout_gravity="center_horizontal"
-                >
+                app:cardElevation="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,6 +148,6 @@
 
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </ScrollView>
+    </com.example.mycanvas.LockableScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

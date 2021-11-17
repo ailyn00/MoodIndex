@@ -13,7 +13,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,13 +30,19 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp">
+                app:cardElevation="5dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    >
 
                     <TextView
                         android:id="@+id/avgMoodTitle"
@@ -58,7 +67,10 @@
                         android:max="200"
                         android:progress="100"
                         android:progressDrawable="@android:color/transparent"
-                        android:rotation="-90" />
+                        android:rotation="-90"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        />
 
                     <TextView
                         android:id="@+id/avgPctgTxt"

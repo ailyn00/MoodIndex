@@ -6,66 +6,137 @@
     android:layout_height="match_parent"
     tools:context=".HomePage">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/avgMoodBarCard"
-        android:layout_width="372dp"
-        android:layout_height="600dp"
-        android:layout_marginTop="30dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/avgMoodTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Their Mood"
-                android:textSize="40sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="This shows how others feel about  the current market!"
-                android:textSize="20sp" />
-
-            <com.example.mycanvas.MoodSeekbar
-                android:id="@+id/avgMoodSeekBar"
-                android:layout_width="278dp"
-                android:layout_height="359dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avgMoodBarCard"
+                android:layout_width="372dp"
+                android:layout_height="600dp"
                 android:layout_gravity="center_horizontal"
-                android:max="200"
-                android:progress="100"
-                android:progressDrawable="@android:color/transparent"
-                android:rotation="-90"
-                />
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
 
-            <TextView
-                android:id="@+id/avgPctgTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="0%"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-            <TextView
-                android:id="@+id/descAvgMood"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/avgMoodTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Their Mood"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:id="@+id/avgMoodDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="This shows how others feel about  the current market!"
+                        android:textSize="20sp" />
+
+                    <com.example.mycanvas.MoodSeekbar
+                        android:id="@+id/avgMoodSeekBar"
+                        android:layout_width="278dp"
+                        android:layout_height="359dp"
+                        android:layout_gravity="center_horizontal"
+                        android:max="200"
+                        android:progress="100"
+                        android:progressDrawable="@android:color/transparent"
+                        android:rotation="-90" />
+
+                    <TextView
+                        android:id="@+id/avgPctgTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/descAvgMood"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/avgMoodBarBeforeCard"
+                android:layout_width="372dp"
+                android:layout_height="600dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/avgMoodBeforeTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Their Average Mood"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/avgMoodBeforeDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="This shows how others feel about the market past 15 days!"
+                        android:textSize="20sp" />
+
+                    <com.example.mycanvas.MoodSeekbar
+                        android:id="@+id/avgMoodSeekBarBefore"
+                        android:layout_width="278dp"
+                        android:layout_height="359dp"
+                        android:layout_gravity="center_horizontal"
+                        android:max="200"
+                        android:progress="100"
+                        android:progressDrawable="@android:color/transparent"
+                        android:rotation="-90" />
+
+                    <TextView
+                        android:id="@+id/avgPctgBeforeTxt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/descAvgMoodBefore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </ScrollView>
 
     <Button
         android:id="@+id/testBtn1"

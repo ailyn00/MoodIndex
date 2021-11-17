@@ -10,17 +10,22 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
     FirebaseServices firebaseServices = new FirebaseServices();
 
     private boolean isLogged = false;
+
+    private int daysBefore = 15;
     private int avgUserMood = 0;
+    private int avgUserMoodBefore = 0;
 
     private SeekBar avgMoodSeekBar;
     private TextView avgPctgTxt;
     private TextView descAvgTxt;
+
+    private SeekBar avgMoodSeekBarBefore;
+    private TextView avgPctgBeforeTxt;
+    private TextView descAvgBeforeTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +45,16 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         avgPctgTxt = findViewById(R.id.avgPctgTxt);
         descAvgTxt = findViewById(R.id.descAvgMood);
 
+        avgMoodSeekBarBefore = findViewById(R.id.avgMoodSeekBarBefore);
+        avgPctgBeforeTxt = findViewById(R.id.avgPctgBeforeTxt);
+        descAvgBeforeTxt = findViewById(R.id.descAvgMoodBefore);
+
         // Fetch Average User Mood on Create
         fetchUsersMoodVal();
 
         // Set Average Seekbar is disable (So Client cannot change the view)
         avgMoodSeekBar.setEnabled(false);
+        avgMoodSeekBarBefore.setEnabled(false);
     }
     @Override
     protected void onResume() {
@@ -118,6 +128,27 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 } else {
                     descAvgTxt.setText("The market feels positive today.");
                     avgPctgTxt.setText("+" + String.valueOf(avgUserMood-100) + "%");// In this line to change the average mood in the percentage text.
+                }
+            }
+        });
+
+        firebaseServices.usersMoodAverageBefore(daysBefore, new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+                Toast.makeText(HomePage.this, "Failed to fetch average users mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
+                avgUserMoodBefore = 0;
+            }
+
+            @Override
+            public void onSuccess(Object response) {
+                avgUserMoodBefore = (int) response;
+                avgMoodSeekBarBefore.setProgress(avgUserMoodBefore);
+                if(avgUserMoodBefore <= 0 && avgUserMoodBefore >= -100){
+                    descAvgBeforeTxt.setText("The market feels negative.");
+                    avgPctgBeforeTxt.setText("-" + String.valueOf(avgUserMoodBefore-100) + "%");// In this line to change the average mood in the percentage text.
+                } else {
+                    descAvgBeforeTxt.setText("The market feels positive.");
+                    avgPctgBeforeTxt.setText("+" + String.valueOf(avgUserMoodBefore-100) + "%");// In this line to change the average mood in the percentage text.
                 }
             }
         });

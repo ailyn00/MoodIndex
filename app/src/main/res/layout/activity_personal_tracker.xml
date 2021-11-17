@@ -7,66 +7,148 @@
     tools:context=".PersonalTracker">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/moodBarCard"
-        android:layout_width="380dp"
-        android:layout_height="532dp"
-        android:layout_marginTop="30dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/moodBarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Your Mood"
-                android:textSize="40dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/moodBarDescTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="How do you feel about market today? Swipe the candle bar up and down to express your mood."
-                android:textSize="20dp" />
-
-            <com.example.mycanvas.MoodSeekbar
-                android:id="@+id/moodSeekBar"
-                android:layout_width="260dp"
-                android:layout_height="297dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/moodBarCard"
+                android:layout_width="380dp"
+                android:layout_height="532dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
                 android:layout_gravity="center_horizontal"
-                android:max="200"
-                android:progress="100"
-                android:progressDrawable="@android:color/transparent"
-                android:rotation="-90"
-                tools:layout_editor_absoluteX="105dp"
-                tools:layout_editor_absoluteY="375dp" />
+                >
 
-            <TextView
-                android:id="@+id/moodPctTxt"
-                android:layout_width="171dp"
-                android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/moodBarTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Mood"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/moodBarDescTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="How do you feel about market today? Swipe the candle bar up and down to express your mood."
+                        android:textSize="20dp" />
+
+                    <com.example.mycanvas.MoodSeekbar
+                        android:id="@+id/moodSeekBar"
+                        android:layout_width="260dp"
+                        android:layout_height="297dp"
+                        android:layout_gravity="center_horizontal"
+                        android:max="200"
+                        android:progress="100"
+                        android:progressDrawable="@android:color/transparent"
+                        android:rotation="-90"
+                        tools:layout_editor_absoluteX="105dp"
+                        tools:layout_editor_absoluteY="375dp" />
+
+                    <TextView
+                        android:id="@+id/moodPctTxt"
+                        android:layout_width="171dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="0%"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/moodSbmtBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="SUBMIT" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/moodBarCardBefore"
+                android:layout_width="380dp"
+                android:layout_height="532dp"
+                android:layout_marginTop="30dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
                 android:layout_gravity="center_horizontal"
-                android:text="0%"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                >
 
-            <Button
-                android:id="@+id/moodSbmtBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SUBMIT" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
+                    <TextView
+                        android:id="@+id/moodBarTitleBefore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Mood In Past Days"
+                        android:textSize="40dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/moodBarDescBeforeTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your past 15 days of mood."
+                        android:textSize="20dp" />
+
+                    <com.example.mycanvas.MoodSeekbar
+                        android:id="@+id/moodSeekBarBefore"
+                        android:layout_width="260dp"
+                        android:layout_height="297dp"
+                        android:layout_gravity="center_horizontal"
+                        android:max="200"
+                        android:progress="100"
+                        android:progressDrawable="@android:color/transparent"
+                        android:rotation="-90"
+                        tools:layout_editor_absoluteX="105dp"
+                        tools:layout_editor_absoluteY="375dp" />
+
+                    <TextView
+                        android:id="@+id/moodPctBeforeTxt"
+                        android:layout_width="171dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="0%"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/usrAvgMoodDescBefore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
+    </ScrollView>
 
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

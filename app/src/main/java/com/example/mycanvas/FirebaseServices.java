@@ -181,9 +181,63 @@ public class FirebaseServices {
         });
     }
 
+    public void userMoodFetchBefore(int n, FirebaseServicesListener firebaseServicesListener) {
+        // Handle firebase service to get user mood
+        FirebaseUser user = mAuth.getCurrentUser();
+        fStore.collection("user_moods").whereEqualTo("user_id", user.getUid())
+                .whereGreaterThanOrEqualTo("time", nDaysBefore(n, new Date())) // Need to be generalized using UTC+8?
+                .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int averageMood = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map userMood = (Map) document.getData();
+                        averageMood += (int)(long) userMood.get("value");
+
+                    }
+                    if(task.getResult().size() > 0){
+                        averageMood /= task.getResult().size();
+                    } else {
+                        averageMood = 0;
+                    }
+                    firebaseServicesListener.onSuccess(averageMood);
+                } else {
+                    firebaseServicesListener.onError("[FIREBASE SERVICE] Failed to fetch \"Mood Values for past n days\"!");
+                }
+            }
+        });
+    }
+
     public void usersMoodAverage(FirebaseServicesListener firebaseServicesListener){
         fStore.collection("user_moods")
                 .whereGreaterThanOrEqualTo("time", atStartOfDay(new Date())) // Need to be generalized using UTC+8?
+                .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    int averageMood = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map userMood = (Map) document.getData();
+                        averageMood += (int) (long) userMood.get("value");
+                    }
+                    if(task.getResult().size() > 0){
+                        averageMood /= task.getResult().size();
+                    } else {
+                        averageMood = 0;
+                    }
+                    firebaseServicesListener.onSuccess(averageMood);
+                } else {
+                    firebaseServicesListener.onError("[FIREBASE SERVICE] Failed to fetch \"Average User Mood Value\" for today!");
+                }
+            }
+        });
+    }
+    public void usersMoodAverageBefore(int n, FirebaseServicesListener firebaseServicesListener){
+        fStore.collection("user_moods")
+                .whereGreaterThanOrEqualTo("time", nDaysBefore(n, new Date())) // Need to be generalized using UTC+8?
                 .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -221,6 +275,17 @@ public class FirebaseServices {
     public Date atStartOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    public Date nDaysBefore(int n, Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, -n);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);

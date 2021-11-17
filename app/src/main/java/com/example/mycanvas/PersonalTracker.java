@@ -25,6 +25,14 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private Button submitBtn;
     private Map userMood;
 
+    private SeekBar moodBarBefore;
+    private TextView pctgBeforeTxt;
+    private TextView descMoodBeforeTxt;
+
+    private int daysBefore = 15;
+
+    private int usrAvgMoodVal = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +47,12 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         moodBar.setOnSeekBarChangeListener(this);
         submitBtn.setOnClickListener(this);
+
+        moodBarBefore = findViewById(R.id.moodSeekBarBefore);
+        pctgBeforeTxt = findViewById(R.id.moodPctBeforeTxt);
+        descMoodBeforeTxt = findViewById(R.id.usrAvgMoodDescBefore);
+
+        moodBarBefore.setEnabled(false);
 
         // Fetch State on create
         fetchPersonalData();
@@ -64,6 +78,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                     submitBtn.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
                     pctgTxt.setText("+" + Integer.toString(progressCalculation(i)) + "%");
                 }
+                break;
+            case R.id.moodSeekBarBefore:
                 break;
             default:
                 break;
@@ -103,6 +119,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                         Log.d("[FIREBASE SERVICE]", "Show Response" + userMood.toString());
                     }
                 });
+                fetchPersonalData();
                 break;
             default:
                 break;
@@ -125,6 +142,27 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             public void onSuccess(Object response) {
                 userMood = (Map) response;
                 moodBar.setProgress((int) (long) userMood.get("value"));
+            }
+        });
+
+        firebaseServices.userMoodFetchBefore(daysBefore, new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+                Toast.makeText(PersonalTracker.this, "Failed to fetch average user mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
+                usrAvgMoodVal = 0;
+            }
+
+            @Override
+            public void onSuccess(Object response) {
+                usrAvgMoodVal = (int) response;
+                moodBarBefore.setProgress(usrAvgMoodVal);
+                if(usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100){
+                    descMoodBeforeTxt.setText("The market feels negative.");
+                    pctgBeforeTxt.setText("-" + String.valueOf(usrAvgMoodVal-100) + "%");// In this line to change the average mood in the percentage text.
+                } else {
+                    descMoodBeforeTxt.setText("The market feels positive.");
+                    pctgBeforeTxt.setText("+" + String.valueOf(usrAvgMoodVal-100) + "%");// In this line to change the average mood in the percentage text.
+                }
             }
         });
     }

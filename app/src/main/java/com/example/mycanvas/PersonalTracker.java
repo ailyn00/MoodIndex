@@ -195,12 +195,13 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             public void onSuccess(Object response) {
                 usrAvgMoodVal = (int) response;
                 moodBarBefore.setProgress(usrAvgMoodVal);
+                usrAvgMoodVal -= 100;
                 if(usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100){
-                    descMoodBeforeTxt.setText("The market feels negative.");
-                    pctgBeforeTxt.setText("-" + String.valueOf(usrAvgMoodVal-100) + "%");// In this line to change the average mood in the percentage text.
+                    descMoodBeforeTxt.setText("You feels negative in the past few days.");
+                    pctgBeforeTxt.setText(String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.
                 } else {
-                    descMoodBeforeTxt.setText("The market feels positive.");
-                    pctgBeforeTxt.setText("+" + String.valueOf(usrAvgMoodVal-100) + "%");// In this line to change the average mood in the percentage text.
+                    descMoodBeforeTxt.setText("You feels feels positive in the past few days.");
+                    pctgBeforeTxt.setText("+" + String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.
                 }
             }
         });

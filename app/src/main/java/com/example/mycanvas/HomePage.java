@@ -71,11 +71,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                     case  R.id.homePage:
 
                         return true;
-
-
-
-
-
                     case R.id.analytics:
                         startActivity(new Intent(getApplicationContext(),analytics.class));
                         overridePendingTransition(0,0);
@@ -170,12 +165,13 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             public void onSuccess(Object response) {
                 avgUserMood = (int) response;
                 avgMoodSeekBar.setProgress(avgUserMood);
+                avgUserMood -= 100;
                 if(avgUserMood <= 0 && avgUserMood >= -100){
                     descAvgTxt.setText("The market feels negative today.");
-                    avgPctgTxt.setText("-" + String.valueOf(avgUserMood-100) + "%");// In this line to change the average mood in the percentage text.
+                    avgPctgTxt.setText(String.valueOf(avgUserMood) + "%");// In this line to change the average mood in the percentage text.
                 } else {
                     descAvgTxt.setText("The market feels positive today.");
-                    avgPctgTxt.setText("+" + String.valueOf(avgUserMood-100) + "%");// In this line to change the average mood in the percentage text.
+                    avgPctgTxt.setText("+" + String.valueOf(avgUserMood) + "%");// In this line to change the average mood in the percentage text.
                 }
             }
         });
@@ -191,12 +187,13 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             public void onSuccess(Object response) {
                 avgUserMoodBefore = (int) response;
                 avgMoodSeekBarBefore.setProgress(avgUserMoodBefore);
+                avgUserMoodBefore -= 100;
                 if(avgUserMoodBefore <= 0 && avgUserMoodBefore >= -100){
                     descAvgBeforeTxt.setText("The market feels negative.");
-                    avgPctgBeforeTxt.setText("-" + String.valueOf(avgUserMoodBefore-100) + "%");// In this line to change the average mood in the percentage text.
+                    avgPctgBeforeTxt.setText(String.valueOf(avgUserMoodBefore) + "%");// In this line to change the average mood in the percentage text.
                 } else {
                     descAvgBeforeTxt.setText("The market feels positive.");
-                    avgPctgBeforeTxt.setText("+" + String.valueOf(avgUserMoodBefore-100) + "%");// In this line to change the average mood in the percentage text.
+                    avgPctgBeforeTxt.setText("+" + String.valueOf(avgUserMoodBefore) + "%");// In this line to change the average mood in the percentage text.
                 }
             }
         });

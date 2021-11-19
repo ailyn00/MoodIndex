@@ -65,41 +65,10 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Fetch State on create
         fetchPersonalData();
-      BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
-      bottomNavigationView.setSelectedItemId(R.id.personalTracker);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
-
-                    case  R.id.homePage:
-                        startActivity(new Intent(getApplicationContext(), HomePage.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.personalTracker:
-
-                        return true;
-
-
-
-                    case R.id.analytics:
-                        startActivity(new Intent(getApplicationContext(),analytics.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(),settings.class));
-                        overridePendingTransition(0,0);
-                        return  true;
-
-                }
-                return false;
-            }
-        });
-//       navbar navbar = new navbar();
-//       navbar.setBottomNavigationView(bottomNavigationView);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.personalTracker);
+        Navigation navigation = new Navigation(PersonalTracker.this, bottomNavigationView);
+        navigation.initializeNavBar();
     }
 
     @Override

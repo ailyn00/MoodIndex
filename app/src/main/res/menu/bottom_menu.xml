@@ -2,23 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-          android:id="@+id/homePage"
+        android:id="@+id/homePage"
         android:icon="@drawable/home"
-        android:title="home"/>
+        android:title="Home"/>
     <item
         android:id="@+id/personalTracker"
         android:icon="@drawable/personal_tracker"
-        android:title="personal tracker"/>
+        android:title="Personal Tracker"/>
     <item
         android:id="@+id/analytics"
         android:icon="@drawable/analytics"
-        android:title="analytics"/>
+        android:title="Analytics"/>
     <item
         android:id="@+id/settings"
         android:icon="@drawable/settings"
-        android:title="settings"/>
-
-
-
-
+        android:title="Settings"/>
 </menu>

@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PersonalTracker"
-    >
+    tools:context=".PersonalTracker">
 
     <TextView
         android:id="@+id/header"
@@ -157,6 +156,7 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </com.example.mycanvas.LockableScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
 
         android:id="@+id/bottomViewNavigation"

@@ -235,6 +235,7 @@ public class FirebaseServices {
             }
         });
     }
+
     public void usersMoodAverageBefore(int n, FirebaseServicesListener firebaseServicesListener){
         fStore.collection("user_moods")
                 .whereGreaterThanOrEqualTo("time", nDaysBefore(n, new Date())) // Need to be generalized using UTC+8?
@@ -259,6 +260,10 @@ public class FirebaseServices {
                 }
             }
         });
+    }
+
+    public void fetchUserFavStocks(FirebaseServicesListener firebaseServicesListener){
+
     }
 
     // Helpers

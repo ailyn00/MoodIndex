@@ -17,48 +17,19 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-//
-     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
-   bottomNavigationView.setSelectedItemId(R.id.settings);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-           @Override
-           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-               switch (item.getItemId())
-               {
 
-                    case  R.id.homePage:
-                        startActivity(new Intent(getApplicationContext(), HomePage.class));
-                        overridePendingTransition(0,0);
-                        return true;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.settings);
+        Navigation navigation = new Navigation(settings.this, bottomNavigationView);
+        navigation.initializeNavBar();
 
-                   case R.id.personalTracker:
-                       startActivity(new Intent(getApplicationContext(), PersonalTracker.class));
-                       overridePendingTransition(0, 0);
-                       return true;
-
-
-
-                    case R.id.analytics:
-                        startActivity(new Intent(getApplicationContext(),analytics.class));
-                        overridePendingTransition(0,0);
-                        return true;
-
-                    case R.id.settings:
-                       return  true;
-
-                }
-               return false;
-           }
-       });
-//        navbar navbar = new navbar();
-//     navbar.setBottomNavigationView(bottomNavigationView);
         Button SignOut = findViewById(R.id.SignOut);
         SignOut.setOnClickListener(this);
     }
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-//
+
             case R.id.SignOut:
                 firebaseServices.userSignOut(new FirebaseServices.FirebaseServicesListener() {
                     @Override

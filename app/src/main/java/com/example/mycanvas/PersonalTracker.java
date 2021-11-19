@@ -65,8 +65,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Fetch State on create
         fetchPersonalData();
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.homePage);
+      BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+      bottomNavigationView.setSelectedItemId(R.id.personalTracker);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -78,7 +78,9 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                         overridePendingTransition(0,0);
                         return true;
 
+                    case R.id.personalTracker:
 
+                        return true;
 
 
 
@@ -96,6 +98,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 return false;
             }
         });
+//       navbar navbar = new navbar();
+//       navbar.setBottomNavigationView(bottomNavigationView);
     }
 
     @Override

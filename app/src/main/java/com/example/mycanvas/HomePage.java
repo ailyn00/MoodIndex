@@ -39,11 +39,11 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         // Check if user is logged in or not
         isLoggedIn();
 
-        Button PersonalTracker = findViewById(R.id.Personal_Tracker);
-        Button SignOut = findViewById(R.id.SignOut);
+//        Button PersonalTracker = findViewById(R.id.Personal_Tracker);
+//        Button SignOut = findViewById(R.id.SignOut);
 
-        PersonalTracker.setOnClickListener(this);
-        SignOut.setOnClickListener(this);
+//        PersonalTracker.setOnClickListener(this);
+//        SignOut.setOnClickListener(this);
 
         avgMoodSeekBar = findViewById(R.id.avgMoodSeekBar);
         avgPctgTxt = findViewById(R.id.avgPctgTxt);
@@ -60,17 +60,24 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         avgMoodSeekBar.setEnabled(false);
         avgMoodSeekBarBefore.setEnabled(false);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.homePage);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
+       bottomNavigationView.setSelectedItemId(R.id.homePage);
+       bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId())
-                {
+              {
 
-                    case  R.id.homePage:
+                   case  R.id.homePage:
 
                         return true;
+
+
+                  case R.id.personalTracker:
+                      startActivity(new Intent(getApplicationContext(), PersonalTracker.class));
+                      overridePendingTransition(0, 0);
+                      return true;
+
                     case R.id.analytics:
                         startActivity(new Intent(getApplicationContext(),analytics.class));
                         overridePendingTransition(0,0);
@@ -81,12 +88,13 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                         overridePendingTransition(0,0);
                         return  true;
 
-                }
-                return false;
-            }
-        });
+               }
+               return false;
+       }
+       });
 
-
+//      navbar navbar = new navbar();
+//      navbar.setBottomNavigationView(bottomNavigationView);
 
 
 
@@ -113,9 +121,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.Personal_Tracker:
-                startActivity(new Intent(HomePage.this, PersonalTracker.class));
-                break;
+//            case R.id.Personal_Tracker:
+//                startActivity(new Intent(HomePage.this, PersonalTracker.class));
+//                break;
             case R.id.SignOut:
                 firebaseServices.userSignOut(new FirebaseServices.FirebaseServicesListener() {
                     @Override

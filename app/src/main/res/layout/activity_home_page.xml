@@ -158,28 +158,10 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/Personal_Tracker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="60dp"
-        android:text="@string/Personal_Tracker"
-
-        android:layout_alignParentBottom="true" />
 
 
-    <Button
-        android:id="@+id/SignOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/SignOut"
-        android:layout_alignParentBottom="true"
-        android:layout_alignBaseline="@+id/Personal_Tracker"
-        android:layout_toEndOf="@+id/Personal_Tracker"
-        android:layout_marginLeft="50dp"
-        app:layout_constraintStart_toEndOf="@+id/Personal_Tracker"
-        />
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
 

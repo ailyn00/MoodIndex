@@ -14,14 +14,13 @@ public class analytics extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analytics);
+       setContentView(R.layout.activity_analytics);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.analytics);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId())
-                {
+      bottomNavigationView.setSelectedItemId(R.id.analytics);
+      bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+          @Override
+          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+              switch (item.getItemId()) {
 
                     case  R.id.homePage:
                         startActivity(new Intent(getApplicationContext(), HomePage.class));
@@ -29,11 +28,15 @@ public class analytics extends AppCompatActivity {
                         return true;
 
 
+                  case R.id.personalTracker:
+                      startActivity(new Intent(getApplicationContext(), PersonalTracker.class));
+                      overridePendingTransition(0, 0);
+                      return true;
 
 
 
-                    case R.id.analytics:
-
+                   case R.id.analytics:
+//
                         return true;
 
                     case R.id.settings:
@@ -42,8 +45,10 @@ public class analytics extends AppCompatActivity {
                         return  true;
 
                 }
-                return false;
-            }
-        });
-    }
-}
+               return false;
+              }
+       });
+//       navbar navbar = new navbar();
+//       navbar.setBottomNavigationView(bottomNavigationView);
+              }
+          }

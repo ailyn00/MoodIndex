@@ -20,4 +20,9 @@
         android:name="com.example.mycanvas.analytics"
         android:label="activity_analytics"
         tools:layout="@layout/activity_analytics" />
+    <activity
+        android:id="@+id/personalTracker"
+        android:name="com.example.mycanvas.PersonalTracker"
+        android:label="activity_personal_tracker"
+        tools:layout="@layout/activity_personal_tracker" />
 </navigation>

@@ -17,6 +17,20 @@
         android:paddingBottom="20dp"
         android:text="@string/app_name"
         android:textSize="30sp" />
+    <Button
+        android:id="@+id/SignOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SignOut"
+        android:layout_alignParentBottom="true"
+
+
+
+        android:layout_marginBottom="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:gravity="center"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomViewNavigation"

@@ -39,7 +39,6 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         // Check if user is logged in or not
         isLoggedIn();
 
-
         avgMoodSeekBar = findViewById(R.id.avgMoodSeekBar);
         avgPctgTxt = findViewById(R.id.avgPctgTxt);
         descAvgTxt = findViewById(R.id.descAvgMood);

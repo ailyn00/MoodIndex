@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -262,8 +263,81 @@ public class FirebaseServices {
         });
     }
 
-    public void fetchUserFavStocks(FirebaseServicesListener firebaseServicesListener){
+    public void addUserFavStock(String name, String docId, boolean isExists, FirebaseServicesListener firebaseServicesListener){
+        if (!isExists) {
+            Map<String, Object> userFav = new HashMap<>();
+            userFav.put("user_id", mAuth.getCurrentUser().getUid());
+            String[] stockNames = {name};
+            userFav.put("fav_stocks", stockNames);
+            fStore.collection("user_fav_stocks").add(userFav).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentReference> task) {
+                    if(task.isSuccessful()){
+                        // Handle async process place when done addition or task
+                        firebaseServicesListener.onSuccess("Successfully add new fav stock");
+                    } else {
+                        // Handle async process place when error doing addition or task
+                        firebaseServicesListener.onError("Failed add new fav stock");
+                    }
+                }
+            });
+        } else {
+            DocumentReference newFavStockRef = fStore.collection("user_fav_stocks").document(docId);
+            newFavStockRef.update("fav_stocks", FieldValue.arrayUnion(name)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        // Handle async process place when done addition or task
+                        firebaseServicesListener.onSuccess("Successfully add new fav stock");
+                    }else {
+                        // Handle async process place when error doing addition or task
+                        firebaseServicesListener.onError("Failed add new fav stock");
+                    }
+                }
+            });
+        }
+    }
 
+    public void deleteUserFavStock(String name, String docId, FirebaseServicesListener firebaseServicesListener){
+        DocumentReference newFavStockRef = fStore.collection("user_fav_stocks").document(docId);
+        newFavStockRef.update("fav_stocks", FieldValue.arrayRemove(name)).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    // Handle async process place when done removal or task
+                    firebaseServicesListener.onSuccess("Successfully add new fav stock");
+                }else {
+                    // Handle async process place when error removal or task
+                    firebaseServicesListener.onError("Failed add new fav stock");
+                }
+            }
+        });
+    }
+
+    public void fetchUserFavStocks(FirebaseServicesListener firebaseServicesListener){
+        fStore.collection("user_fav_stocks")
+                .whereEqualTo("user_id", mAuth.getCurrentUser().getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    Map<String, Object> userFavStocks = new HashMap<>();
+                    for(QueryDocumentSnapshot document : task.getResult()){
+                        userFavStocks = (Map) document.getData();
+                        userFavStocks.put("id", document.getId());
+                    }
+                    /*
+                    Will return respone when declare the function with keys map of
+                    "id" <= String
+                    "user_id" <= String
+                    "fav_stocks" <= Array Object (?)
+                     */
+                    firebaseServicesListener.onSuccess(userFavStocks);
+                }else {
+                    firebaseServicesListener.onError("Failed to get user fav stocks");
+                }
+            }
+        });
     }
 
     // Helpers

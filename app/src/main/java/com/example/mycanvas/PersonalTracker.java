@@ -29,7 +29,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private TextView pctgTxt;
     private Button submitBtn;
     private Map userMood;
-
+     private Map StockList;
     private LockableScrollView lockableScrollView;
 
     private SeekBar moodBarBefore;
@@ -187,5 +187,25 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         else if (event.getAction() == MotionEvent.ACTION_UP)
             lockableScrollView.setScrollingEnabled(false);
         return false;
+    }
+
+
+    public void fetch_fav_stock(){
+        firebaseServices.fetchUserFavStocks(
+                new FirebaseServices.FirebaseServicesListener() {
+                                                @Override
+                                                public void onError(String msg) {
+
+                                                }
+
+                                                @Override
+                                                public void onSuccess(Object response) {
+                                                     StockList = (Map)response;
+                                                     MyAdapter myAdapter = new MyAdapter(PersonalTracker.this , StockList);
+
+                                                }
+                                            }
+        );
+
     }
 }

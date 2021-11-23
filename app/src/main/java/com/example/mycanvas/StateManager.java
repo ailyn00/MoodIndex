@@ -7,10 +7,20 @@ class StateManager {
 
     private static Map userFavStocks;
     private static Map userMood;
+    private static int avgUserMood;
 
     public StateManager() {
         userFavStocks = new HashMap<>();
         userMood = new HashMap<>();
+        avgUserMood = 0;
+    }
+
+    public static int getAvgUserMood() {
+        return avgUserMood;
+    }
+
+    public static void setAvgUserMood(int avgUserMood) {
+        StateManager.avgUserMood = avgUserMood;
     }
 
     public static Map getUserFavStocks() {

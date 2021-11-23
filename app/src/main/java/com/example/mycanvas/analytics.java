@@ -34,6 +34,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     TextView percent;
     Button fetchStockBtn;
     Button addFavStockBtn;
+    Button delFavStockBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,11 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         fetchStockBtn = findViewById(R.id.fetchStockBtn);
         addFavStockBtn = findViewById(R.id.addFavStockBtn);
+        delFavStockBtn = findViewById(R.id.deleteFavStockBtn);
         fetchStockBtn.setOnClickListener(this);
         addFavStockBtn.setOnClickListener(this);
+        delFavStockBtn.setOnClickListener(this);
+
        autoclicked();
 
     }
@@ -84,17 +88,6 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
             }
        }  );
     }
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onClick(View view) {
@@ -152,11 +145,29 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                     });
                 }
             case R.id.deleteFavStockBtn:
+                if(isHaveStocksFav()){
+                    if(!addStockInFav(et_stock_quote.getText().toString())){
+                        firebaseServices.deleteUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) stateManager.getUserFavStocks()).get("id"), new FirebaseServices.FirebaseServicesListener() {
+                            @Override
+                            public void onError(String msg) {
+                                Toast.makeText(analytics.this, "You failed to remove stock to the watchlist!", Toast.LENGTH_LONG).show();
+                            }
 
+                            @Override
+                            public void onSuccess(Object response) {
+                                delUserFavStock(et_stock_quote.getText().toString());
+                                Toast.makeText(analytics.this, "You successfully remove stock from the watchlist!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(analytics.this, "You dont have this stock in your watchlist!", Toast.LENGTH_LONG).show();
+                    }
+                }
         }
     }
 
     public boolean isTickerValid(){
+        // WARFRAME TROS LIAT LAH COMMENT NYA SEKALIAN DAH GTA V TROS
         return false;
     }
 
@@ -194,5 +205,13 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
             stateManager.setUserFavStocks(userStockFav);
         }
+    }
+    public void delUserFavStock(String name){
+        Map userStockFav = ((Map) stateManager.getUserFavStocks());
+        ArrayList<String> oldUserStockFav =  (ArrayList<String>) userStockFav.get("fav_stocks");
+        oldUserStockFav.remove(oldUserStockFav.indexOf(name));
+        userStockFav.remove("fav_stocks");
+        userStockFav.put("fav_stocks", oldUserStockFav);
+        stateManager.setUserFavStocks(userStockFav);
     }
 }

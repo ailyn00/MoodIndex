@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyCanvas">
+        android:theme="@style/Theme.MyCanvas"
+        android:name=".MoodIndexApp">
         <activity android:name=".analytics"></activity>
         <activity android:name=".settings" />
         <activity

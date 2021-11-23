@@ -1,10 +1,8 @@
 package com.example.mycanvas;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -12,29 +10,37 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.Map;
 
-public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener{
+public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener {
 
     // Variables
     private FirebaseServices firebaseServices;
+    private StateManager stateManager;
 
     private SeekBar moodBar;
     private TextView pctgTxt;
     private Button submitBtn;
+
     private Map userMood;
-     private Map StockList;
+    private Map userFavStocks;
+
     private LockableScrollView lockableScrollView;
 
     private SeekBar moodBarBefore;
     private TextView pctgBeforeTxt;
     private TextView descMoodBeforeTxt;
+
+    private RecyclerView watchListView;
 
     private int daysBefore = 15;
 
@@ -47,6 +53,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize Variables
         firebaseServices = new FirebaseServices();
+        stateManager = ((MoodIndexApp)getApplicationContext()).getStateManager();
 
         lockableScrollView = (LockableScrollView) findViewById(R.id.lockableScrollPersonal);
 
@@ -63,8 +70,15 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         moodBarBefore.setEnabled(false);
 
+        // Initialize RecyclerView
+        watchListView = (RecyclerView) this.findViewById(R.id.watchListView);
+        watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this));
+        watchListView.setAdapter(new MyAdapter());
+
+
         // Fetch State on create
         fetchPersonalData();
+        fetchFavStocks();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
         bottomNavigationView.setSelectedItemId(R.id.personalTracker);
         Navigation navigation = new Navigation(PersonalTracker.this, bottomNavigationView);
@@ -76,14 +90,15 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         super.onResume();
         // Fetch personal state data on resume
         fetchPersonalData();
+        fetchFavStocks();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-        switch(seekBar.getId()){
+        switch (seekBar.getId()) {
             case R.id.moodSeekBar:
-                if(progressCalculation(i) <= 0 && progressCalculation(i) >= -100){
+                if (progressCalculation(i) <= 0 && progressCalculation(i) >= -100) {
                     submitBtn.setBackgroundTintList(this.getResources().getColorStateList(R.color.red));
                     pctgTxt.setText(Integer.toString(progressCalculation(i)) + "%");
                 } else {
@@ -110,11 +125,11 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.moodSbmtBtn:
                 boolean update = false;
                 String id = "";
-                if(userMood != null) {
+                if (userMood != null) {
                     update = true;
                     id = (String) userMood.get("id");
                 }
@@ -138,11 +153,11 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         }
     }
 
-    public int progressCalculation(int val){
+    public int progressCalculation(int val) {
         return (val - 100);
     }
 
-    private void fetchPersonalData(){
+    private void fetchPersonalData() {
         firebaseServices.userMoodFetch(new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
@@ -153,6 +168,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             @Override
             public void onSuccess(Object response) {
                 userMood = (Map) response;
+                stateManager.setUserMood((Map) response);
                 moodBar.setProgress((int) (long) userMood.get("value"));
             }
         });
@@ -169,7 +185,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 usrAvgMoodVal = (int) response;
                 moodBarBefore.setProgress(usrAvgMoodVal);
                 usrAvgMoodVal -= 100;
-                if(usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100){
+                if (usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100) {
                     descMoodBeforeTxt.setText("You feels negative in the past few days.");
                     pctgBeforeTxt.setText(String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.
                 } else {
@@ -190,21 +206,22 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     }
 
 
-    public void fetch_fav_stock(){
+    public void fetchFavStocks() {
         firebaseServices.fetchUserFavStocks(
                 new FirebaseServices.FirebaseServicesListener() {
-                                                @Override
-                                                public void onError(String msg) {
+                    @Override
+                    public void onError(String msg) {
+                        Toast.makeText(PersonalTracker.this, msg, Toast.LENGTH_SHORT).show();
+                    }
 
-                                                }
-
-                                                @Override
-                                                public void onSuccess(Object response) {
-                                                     StockList = (Map)response;
-                                                     MyAdapter myAdapter = new MyAdapter(PersonalTracker.this , StockList);
-
-                                                }
-                                            }
+                    @Override
+                    public void onSuccess(Object response) {
+                        stateManager.setUserFavStocks((Map) response);
+                        ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
+                        MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks);
+                        watchListView.setAdapter(myAdapter);
+                    }
+                }
         );
 
     }

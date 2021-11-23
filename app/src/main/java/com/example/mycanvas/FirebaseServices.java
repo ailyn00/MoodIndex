@@ -24,6 +24,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Document;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -267,14 +270,20 @@ public class FirebaseServices {
         if (!isExists) {
             Map<String, Object> userFav = new HashMap<>();
             userFav.put("user_id", mAuth.getCurrentUser().getUid());
-            String[] stockNames = {name};
-            userFav.put("fav_stocks", stockNames);
+            ArrayList<String> favStocks = new ArrayList<>();
+            favStocks.add(name);
+            userFav.put("fav_stocks", favStocks);
             fStore.collection("user_fav_stocks").add(userFav).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentReference> task) {
                     if(task.isSuccessful()){
+                        DocumentReference document = task.getResult();
+                        Map<String, Object> response = new HashMap<>();
+                        response.put("id", (String) document.getId());
+                        response.put("user_id", (String) mAuth.getCurrentUser().getUid());
+                        response.put("fav_stocks", favStocks);
                         // Handle async process place when done addition or task
-                        firebaseServicesListener.onSuccess("Successfully add new fav stock");
+                        firebaseServicesListener.onSuccess(response);
                     } else {
                         // Handle async process place when error doing addition or task
                         firebaseServicesListener.onError("Failed add new fav stock");
@@ -327,14 +336,14 @@ public class FirebaseServices {
                         userFavStocks.put("id", document.getId());
                     }
                     /*
-                    Will return respone when declare the function with keys map of
+                    Will return response when declare the function with keys map of
                     "id" <= String
                     "user_id" <= String
                     "fav_stocks" <= Array Object (?)
                      */
                     firebaseServicesListener.onSuccess(userFavStocks);
                 }else {
-                    firebaseServicesListener.onError("Failed to get user fav stocks");
+                    firebaseServicesListener.onError("Failed to get user favorite stocks");
                 }
             }
         });

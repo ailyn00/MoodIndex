@@ -16,11 +16,15 @@ import java.util.Map;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
-    Map<String , Object> stocklist;
+    ArrayList<String> favStocks;
 
-    public MyAdapter(Context context, Map<String, Object> stocklist) {
+    public MyAdapter(){
+
+    }
+
+    public MyAdapter(Context context, ArrayList<String> favStocks) {
         this.context = context;
-        this.stocklist = stocklist;
+        this.favStocks = favStocks;
     }
 
     @NonNull
@@ -33,16 +37,17 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-        List<String> indexes = new ArrayList<String>(stocklist.keySet());
-        String stock = indexes.get(position);
+        String stock = favStocks.get(position);
         holder.textView.setText(stock);
-
-
     }
 
     @Override
     public int getItemCount() {
-        return stocklist.size();
+        if(favStocks != null){
+            return favStocks.size();
+        } else {
+            return 0;
+        }
     }
 
  public static class MyViewHolder extends RecyclerView.ViewHolder{

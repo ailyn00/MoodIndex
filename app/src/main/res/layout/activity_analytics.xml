@@ -38,20 +38,20 @@
             />
 
         <Button
-            android:id="@+id/change"
+            android:id="@+id/fetchStockBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_below="@+id/et_stock"
             android:text="stock quote" />
         <Button
-            android:id="@+id/add"
+            android:id="@+id/addFavStockBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-              android:layout_alignBaseline="@id/change"
-            android:layout_toEndOf="@id/change"
+              android:layout_alignBaseline="@id/fetchStockBtn"
+            android:layout_toEndOf="@id/fetchStockBtn"
             android:layout_marginLeft="20dp"
-            android:layout_below="@+id/change"
+            android:layout_below="@+id/fetchStockBtn"
             android:text="add to list" />
 
         <androidx.cardview.widget.CardView
@@ -59,7 +59,7 @@
             android:id="@+id/result_current"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_below="@+id/change"
+            android:layout_below="@+id/fetchStockBtn"
             android:layout_marginTop="5dp"
             android:backgroundTint="#9C27B0"
             app:cardCornerRadius="20dp">
@@ -148,7 +148,7 @@
             android:id="@+id/result_high"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_below="@+id/change"
+            android:layout_below="@+id/fetchStockBtn"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/result_current"

@@ -42,6 +42,10 @@
     
     <string name="Your_PastMoods">Your Mood In Past Days</string>
     <string name="Your_PastMoodsPctg">0%</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="Default">default</string>
+    Default
 
 
 </resources>

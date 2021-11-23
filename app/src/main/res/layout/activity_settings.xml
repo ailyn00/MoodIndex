@@ -11,26 +11,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/corner"
+        android:layout_marginTop="12dp"
+        android:background="?attr/colorPrimary"
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/app_name"
+        android:textColor="#5E35B1"
         android:textSize="30sp" />
+
     <Button
         android:id="@+id/SignOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/SignOut"
         android:layout_alignParentBottom="true"
-
-
-
-        android:layout_marginBottom="100dp"
         android:layout_marginLeft="50dp"
+
+
         android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
         android:gravity="center"
-        />
+        android:text="@string/SignOut"
+        android:textColor="#311B92" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomViewNavigation"
@@ -41,5 +43,49 @@
         android:layout_marginBottom="1dp"
         app:itemTextColor="@color/black"
         app:menu="@menu/bottom_menu" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/btg_theme"
+        android:layout_width="276dp"
+        android:layout_height="49dp"
+        android:layout_above="@+id/SignOut"
+        android:layout_below="@+id/header"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="312dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginBottom="129dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <Button
+            android:id="@+id/btnDefault"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Default" />
+
+        <Button
+            android:id="@+id/btnDark"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dark" />
+
+        <Button
+            android:id="@+id/btnLight"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="48dp"
+            android:text="@string/light" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
 
 </RelativeLayout>

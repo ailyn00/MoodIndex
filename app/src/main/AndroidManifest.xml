@@ -11,6 +11,7 @@
         android:theme="@style/Theme.MyCanvas">
         <activity android:name=".analytics"></activity>
         <activity android:name=".settings" />
+
         <activity
             android:name=".HomePage"
             android:exported="true" />

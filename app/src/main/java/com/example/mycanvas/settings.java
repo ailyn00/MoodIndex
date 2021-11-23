@@ -1,18 +1,25 @@
 package com.example.mycanvas;
 
-import androidx.annotation.NonNull;
+import static com.google.android.material.button.MaterialButtonToggleGroup.*;
+
+import  androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 
 public class settings extends AppCompatActivity implements View.OnClickListener {
     FirebaseServices firebaseServices = new FirebaseServices();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +32,27 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         Button SignOut = findViewById(R.id.SignOut);
         SignOut.setOnClickListener(this);
+
+        //Setting Theme ---------------------------------------------------
+        MaterialButtonToggleGroup buttonToggleGroup = findViewById(R.id.btg_theme);
+
+        buttonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+
+                if (checkedId == R.id.btnDefault) {//Default
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                }
+                else if (checkedId == R.id.btnDark) { //Dark
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                else if (checkedId == R.id.btnLight) {//Light
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+
+            }
+        });
+
+
     }
     @Override
     public void onClick(View view) {

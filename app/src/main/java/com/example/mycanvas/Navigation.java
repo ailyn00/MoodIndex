@@ -38,8 +38,8 @@ public class Navigation {
                         ((Activity) ctx).overridePendingTransition(0, 0);
                         return true;
                     case R.id.settings:
-                        ((Activity) ctx).overridePendingTransition(0, 0);
                         ctx.startActivity(new Intent(ctx.getApplicationContext(), settings.class));
+                        ((Activity) ctx).overridePendingTransition(0, 0);
                         return true;
                 }
                 return false;

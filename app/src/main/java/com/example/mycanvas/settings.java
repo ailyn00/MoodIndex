@@ -1,5 +1,6 @@
 package com.example.mycanvas;
 
+import static com.example.mycanvas.MoodColor.moodColor;
 import static com.google.android.material.button.MaterialButtonToggleGroup.*;
 
 import  androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -52,6 +54,8 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
+        TextView headerView = findViewById(R.id.header);
+        moodColor(headerView,100);
 
     }
     @Override

@@ -11,4 +11,9 @@
     <color name="SquareColor">#F321C5</color>
     <color name="text_shadow">#7F000000</color>
     <color name="red">#FF0000</color>
+
+    <color name="Excited">#76ff03</color>
+    <color name="Panic">#e53935</color>
+
+
 </resources>

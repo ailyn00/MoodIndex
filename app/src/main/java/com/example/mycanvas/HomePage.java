@@ -14,7 +14,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
+    StateManager stateManager;
     FirebaseServices firebaseServices = new FirebaseServices();
 
     private boolean isLogged = false;
@@ -38,6 +42,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         // Check if user is logged in or not
         isLoggedIn();
+        stateManager = ((MoodIndexApp)getApplicationContext()).getStateManager();
 
         avgMoodSeekBar = findViewById(R.id.avgMoodSeekBar);
         avgPctgTxt = findViewById(R.id.avgPctgTxt);
@@ -49,6 +54,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         // Fetch Average User Mood on Create
         fetchUsersMoodVal();
+        fetchFavStocks();
 
         // Set Average Seekbar is disable (So Client cannot change the view)
         avgMoodSeekBar.setEnabled(false);
@@ -155,5 +161,22 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 }
             }
         });
+    }
+
+    public void fetchFavStocks() {
+        firebaseServices.fetchUserFavStocks(
+                new FirebaseServices.FirebaseServicesListener() {
+                    @Override
+                    public void onError(String msg) {
+                        Toast.makeText(HomePage.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSuccess(Object response) {
+                        stateManager.setUserFavStocks((Map) response);
+                    }
+                }
+        );
+
     }
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -82,28 +83,30 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) stateManager.getUserFavStocks()).get("id"), true, new FirebaseServices.FirebaseServicesListener() {
                             @Override
                             public void onError(String msg) {
-
+                                Toast.makeText(analytics.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onSuccess(Object response) {
                                 setUserFavStock(et_stock_quote.getText().toString(), "", "",true);
+                                Toast.makeText(analytics.this, "Successfully add symbol to the watchlist!", Toast.LENGTH_LONG).show();
                             }
                         });
                     } else {
-                        System.out.println("No need to add la!");
+                        Toast.makeText(analytics.this, "You already have this stock in your watchlist!", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), "", false, new FirebaseServices.FirebaseServicesListener() {
                         @Override
                         public void onError(String msg) {
-
+                            Toast.makeText(analytics.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onSuccess(Object response) {
                             Map res = (Map) response;
                             setUserFavStock(et_stock_quote.getText().toString(), (String) res.get("id"),(String) res.get("user_id"), false);
+                            Toast.makeText(analytics.this, "You are successfully add stock symbol to your watchlist!", Toast.LENGTH_LONG).show();
                         }
                     });
                 }
@@ -115,7 +118,8 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     }
 
     public boolean isHaveStocksFav(){
-        if(((Map) stateManager.getUserFavStocks()) == null) return false;
+        System.out.println(stateManager.getUserFavStocks().containsKey("id"));
+        if(!stateManager.getUserFavStocks().containsKey("id")) return false;
         return true;
     }
 
@@ -125,9 +129,9 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         return true;
     }
 
-    public void setUserFavStock(String name, String docId, String userId, boolean isHavingStockFav){
+    public void setUserFavStock(String name, String docId, String userId, boolean isHavingFav){
 
-        if(isHavingStockFav){
+        if(isHavingFav){
 
             Map userStockFav = ((Map) stateManager.getUserFavStocks());
             ArrayList<String> oldUserStockFav =  (ArrayList<String>) userStockFav.get("fav_stocks");

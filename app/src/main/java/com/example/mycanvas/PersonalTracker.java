@@ -142,6 +142,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                     @Override
                     public void onSuccess(Object response) {
                         userMood = (Map) response;
+                        stateManager.setUserMood((Map) response);
                         Toast.makeText(PersonalTracker.this, "Successfully submit your mood today!", Toast.LENGTH_LONG).show();
                         Log.d("[FIREBASE SERVICE]", "Show Response" + userMood.toString());
                     }

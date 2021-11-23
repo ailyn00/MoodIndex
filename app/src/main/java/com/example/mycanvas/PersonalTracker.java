@@ -1,5 +1,6 @@
 package com.example.mycanvas;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener {
+public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener, MyAdapter.OnNoteListener {
 
     // Variables
     private FirebaseServices firebaseServices;
@@ -33,6 +34,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
     private Map userMood;
     private Map userFavStocks;
+
+
 
     private LockableScrollView lockableScrollView;
 
@@ -72,7 +75,11 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize RecyclerView
         watchListView = (RecyclerView) this.findViewById(R.id.watchListView);
-        watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this));
+       // new LinearLayoutManager(PersonalTracker.this, LinearLayoutManager.VERTICAL, false);
+        //watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this));
+        watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this, LinearLayoutManager.VERTICAL, false));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(PersonalTracker.this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         watchListView.setAdapter(new MyAdapter());
 
 
@@ -219,11 +226,19 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                     public void onSuccess(Object response) {
                         stateManager.setUserFavStocks((Map) response);
                         ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-                        MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks);
+                        MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
                         watchListView.setAdapter(myAdapter);
                     }
                 }
         );
 
+    }
+
+    @Override
+    public void oNoteClick(int position) {
+        ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
+      Intent intent= new Intent(this , analytics.class);
+      intent.putExtra("some", favStocks.get(position));
+      startActivity(intent);
     }
 }

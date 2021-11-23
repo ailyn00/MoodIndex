@@ -160,6 +160,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="100dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/watchlisttittle"
@@ -171,8 +174,12 @@
                         android:layout_gravity="center"/>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/watchListView"
+                        android:visibility="visible"
+                       android:scrollbars="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="100dp"
+                        />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

@@ -2,6 +2,7 @@ package com.example.mycanvas;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -63,15 +64,55 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         addFavStockBtn = findViewById(R.id.addFavStockBtn);
         fetchStockBtn.setOnClickListener(this);
         addFavStockBtn.setOnClickListener(this);
-
+       autoclicked();
 
     }
+
+    public void autoclicked(){
+        Intent intent = getIntent();
+        String change = intent.getStringExtra("some");
+        et_stock_quote.setText(change);
+        requestService.getStockQuote(change, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
+            @Override
+            public void onError(String error) {
+                Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onResponse(String stock) {
+
+            }
+       }  );
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.fetchStockBtn:
-                requestService.getStockQuote(et_stock_quote.getText().toString() , high_price , low_price,open_price,previous_price, current_price,tick, changes ,percent);
+
+
+                requestService.getStockQuote(et_stock_quote.getText().toString(), high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
+                    @Override
+                    public void onError(String error) {
+                        Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String stock) {
+
+                    }
+                });
             case R.id.addFavStockBtn:
                 // Request Service benerin, kalo ada ticker yang ga valid masa toastnya masih success (Coba pake interface kaya di contoh youtube yg gw kasi ke lu dulu)
                 // Kalo pake interface yang kaya di youtube ato yang kaya di Firebase ini bakal kasi 2 class yg bisa nerima kalo onError ato onSuccess
@@ -110,6 +151,8 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         }
                     });
                 }
+            case R.id.deleteFavStockBtn:
+
         }
     }
 

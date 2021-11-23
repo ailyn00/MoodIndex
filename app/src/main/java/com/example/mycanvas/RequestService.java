@@ -28,7 +28,12 @@ public class RequestService {
         this.context = context;
 
     }
-    public void getStockQuote(String quote, TextView H , TextView L , TextView O , TextView P , TextView C , TextView T , TextView D , TextView DP){
+    public interface StockQuoteListener{
+        void onError(String error);
+
+        void onResponse( String stock );
+    }
+    public void getStockQuote(String quote, TextView H , TextView L , TextView O , TextView P , TextView C , TextView T , TextView D , TextView DP, StockQuoteListener stockQuoteListener){
         RequestQueue queue = Volley.newRequestQueue(context);
         String url = QUERY_FOR_STOCK_DATA+quote+QUERY_API_TOKEN;
         JSONObject jsonObject = new JSONObject();
@@ -40,27 +45,43 @@ public class RequestService {
             public void onResponse(String response) {
                 try{
 
-
                     JSONObject jo = new JSONObject(response.toString());
+
                     String current = jo.getString("c");
-                    String changes = jo.getString("d");
-                    String percentage = jo.getString("dp");
+                    String  changes = jo.getString("d");
+                    String  percentage = jo.getString("dp");
                     String high = jo.getString("h");
                     String low = jo.getString("l");
                     String open = jo.getString("o");
                     String previous = jo.getString("pc");
                     String tick = jo.getString("t");
 
-                    C.setText(current);
-                    D.setText( changes);
-                    DP.setText( percentage);
-                    H.setText(high);
-                    L.setText( low);
-                    O.setText(open);
-                    P.setText(previous);
-                    T.setText(tick);
 
-                    Toast.makeText(context, "success" ,Toast.LENGTH_SHORT).show();
+
+
+
+
+
+                      stockQuoteListener.onResponse(quote);
+                    if(percentage.equals("null")){
+                        Toast.makeText(context, "Ticker not available" ,Toast.LENGTH_LONG).show();
+                    }else {
+                        C.setText(current);
+                        D.setText(changes);
+                        DP.setText(percentage);
+                        H.setText(high);
+                        L.setText(low);
+                        O.setText(open);
+                        P.setText(previous);
+                        T.setText(tick);
+                        Toast.makeText(context, "success" ,Toast.LENGTH_SHORT).show();
+                    }
+
+
+
+
+
+
                 }catch(JSONException e){
                     e.printStackTrace();
                 }
@@ -71,7 +92,7 @@ public class RequestService {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                Toast.makeText(context,"something wrong",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show();
             }
         }
 

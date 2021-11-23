@@ -52,8 +52,16 @@
             android:layout_toEndOf="@id/fetchStockBtn"
             android:layout_marginLeft="20dp"
             android:layout_below="@+id/fetchStockBtn"
-            android:text="add to list" />
-
+            android:text="add " />
+        <Button
+            android:id="@+id/deleteFavStockBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/fetchStockBtn"
+            android:layout_toEndOf="@id/addFavStockBtn"
+            android:layout_marginLeft="20dp"
+            android:layout_below="@+id/fetchStockBtn"
+            android:text="delete " />
         <androidx.cardview.widget.CardView
 
             android:id="@+id/result_current"

@@ -10,21 +10,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<String> favStocks;
+    private  OnNoteListener mOnNoteListener;
+
 
     public MyAdapter(){
 
     }
 
-    public MyAdapter(Context context, ArrayList<String> favStocks) {
+    public MyAdapter(Context context, ArrayList<String> favStocks ,OnNoteListener onNoteListener) {
         this.context = context;
         this.favStocks = favStocks;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -32,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
 
-        return new MyViewHolder(v);
+        return new MyViewHolder(v, mOnNoteListener);
     }
 
     @Override
@@ -50,12 +51,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         }
     }
 
- public static class MyViewHolder extends RecyclerView.ViewHolder{
+ public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     TextView textView;
-     public MyViewHolder(@NonNull View itemView) {
+    OnNoteListener onNoteListener;
+     public MyViewHolder(@NonNull View itemView , OnNoteListener onNoteListener) {
 
          super(itemView);
          textView = itemView.findViewById(R.id.stock);
+         this.onNoteListener= onNoteListener;
+         itemView.setOnClickListener(this);
+
      }
+
+     @Override
+     public void onClick(View v) {
+          onNoteListener.oNoteClick(getAdapterPosition());
+     }
+ }
+ public interface  OnNoteListener{
+        void oNoteClick(int position);
+
+
  }
 }

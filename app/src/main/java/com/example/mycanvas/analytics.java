@@ -155,6 +155,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     }
 
     public void fetchStock(String name, boolean fromClick) {
+        addFavStockBtn.setEnabled(false);
         if (fromClick) {
             Intent intent = getIntent();
             String change = intent.getStringExtra("some");

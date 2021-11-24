@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/night"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".settings">
@@ -17,20 +18,22 @@
         android:paddingBottom="20dp"
         android:text="@string/app_name"
         android:textSize="30sp" />
-    <Button
-        android:id="@+id/SignOut"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/SignOut"
-        android:layout_alignParentBottom="true"
 
 
-
-        android:layout_marginBottom="100dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="177dp"
+        android:layout_height="178dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="90dp"
         android:gravity="center"
-        />
+        android:contentDescription="@string/logo"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:ignore="ImageContrastCheck,ImageContrastCheck"
+        tools:srcCompat="@mipmap/ic_launcher" />
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomViewNavigation"
@@ -41,5 +44,88 @@
         android:layout_marginBottom="1dp"
         app:itemTextColor="@color/black"
         app:menu="@menu/bottom_menu" />
+
+    <Switch
+        android:id="@+id/DarkTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="326dp"
+        android:defaultValue="false"
+        android:minHeight="48dp"
+        android:text="Dark mode"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="367dp"
+        android:text="About - version 1.0.1"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userinfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginBottom="300dp"
+        android:text="USER INFO"
+        android:textSize="23sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="278dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="256dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="234dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/SignOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="50dp"
+
+
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:text="@string/SignOut" />
+
+
+
 
 </RelativeLayout>

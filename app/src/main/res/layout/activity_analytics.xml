@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:background="@drawable/corner"
         android:gravity="center"
-        android:paddingTop="20dp"
+        android:paddingTop="10dp"
         android:paddingBottom="20dp"
         android:text="@string/app_name"
         android:textSize="30sp" />
@@ -24,8 +24,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="16dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:elevation="5dp">
 
 
 
@@ -38,6 +43,7 @@
             />
 
         <Button
+            android:layout_marginTop="10dp"
             android:id="@+id/fetchStockBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,7 +56,7 @@
             android:layout_height="wrap_content"
               android:layout_alignBaseline="@id/fetchStockBtn"
             android:layout_toEndOf="@id/fetchStockBtn"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/fetchStockBtn"
             android:text="add " />
         <Button
@@ -59,18 +65,20 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/fetchStockBtn"
             android:layout_toEndOf="@id/addFavStockBtn"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/fetchStockBtn"
             android:text="delete " />
         <androidx.cardview.widget.CardView
 
             android:id="@+id/result_current"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
+           android:layout_marginLeft="20dp"
             android:layout_below="@+id/fetchStockBtn"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:elevation="5dp"
             android:backgroundTint="#9C27B0"
-            app:cardCornerRadius="20dp">
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,14 +117,15 @@
 
             android:id="@+id/result_low"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
 
             android:layout_below="@id/result_high"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/result_current"
             android:backgroundTint="#F44336"
-            app:cardCornerRadius="20dp">
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -155,13 +164,14 @@
 
             android:id="@+id/result_high"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/fetchStockBtn"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/result_current"
             android:backgroundTint="#4CAF65"
-            app:cardCornerRadius="20dp">
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -200,11 +210,13 @@
 
             android:id="@+id/result_open"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/result_current"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
             android:backgroundTint="#00BCD4"
-            app:cardCornerRadius="20dp">
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -243,10 +255,12 @@
 
             android:id="@+id/result_previous"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/result_open"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
             android:backgroundTint="#3F51B5"
+            android:elevation="5dp"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
@@ -286,13 +300,14 @@
 
             android:id="@+id/result_ticker"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
 
             android:layout_below="@id/result_low"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/result_current"
             android:backgroundTint="#673AB7"
+            android:elevation="5dp"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
@@ -332,11 +347,13 @@
 
             android:id="@+id/result_changes"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
             android:layout_below="@+id/result_previous"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:backgroundTint="#FF5722"
-            app:cardCornerRadius="20dp">
+            android:layout_marginLeft="20dp"
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -375,14 +392,15 @@
 
             android:id="@+id/result_percentage"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="120dp"
 
             android:layout_below="@id/result_ticker"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_toRightOf="@id/result_current"
             android:backgroundTint="#E91E63"
-            app:cardCornerRadius="20dp">
+            android:elevation="5dp"
+            app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"

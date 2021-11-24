@@ -92,6 +92,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                             public void onSuccess(Object response) {
                                 setUserFavStock(et_stock_quote.getText().toString(), "", "", true);
                                 Toast.makeText(analytics.this, "Successfully add symbol to the watchlist!", Toast.LENGTH_LONG).show();
+                                addFavStockBtn.setEnabled(false);
                             }
                         });
                     } else {
@@ -109,6 +110,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                             Map res = (Map) response;
                             setUserFavStock(et_stock_quote.getText().toString(), (String) res.get("id"), (String) res.get("user_id"), false);
                             Toast.makeText(analytics.this, "You are successfully add stock symbol to your watchlist!", Toast.LENGTH_LONG).show();
+                            addFavStockBtn.setEnabled(false);
                         }
                     });
                 }

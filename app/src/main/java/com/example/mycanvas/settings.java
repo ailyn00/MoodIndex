@@ -23,7 +23,6 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
     //private static MaterialButtonToggleGroup buttonToggleGroup;
     FirebaseServices firebaseServices = new FirebaseServices();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,21 +77,24 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                 if (checkedId == R.id.btnDefault) {//Default
                     //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-
-
                 } else if (checkedId == R.id.btnDark) { //Dark
                     //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    if(isNightMode){
 
-
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        recreate();
+                    }
                 } else if (checkedId == R.id.btnLight) {//Light
                     //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    if(!isNightMode){
 
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        recreate();
+                    }
                 }
             }
         });
     }
-
-
 }

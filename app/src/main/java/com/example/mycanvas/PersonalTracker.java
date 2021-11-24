@@ -1,5 +1,8 @@
 package com.example.mycanvas;
 
+import static com.example.mycanvas.MoodColor.moodColor;
+import static com.example.mycanvas.StateManager.getAvgUserMood;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -85,6 +88,10 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         bottomNavigationView.setSelectedItemId(R.id.personalTracker);
         Navigation navigation = new Navigation(PersonalTracker.this, bottomNavigationView);
         navigation.initializeNavBar();
+
+        //Sets Moodbar Color according to average mood
+        TextView headerView = findViewById(R.id.header);
+        moodColor(headerView, getAvgUserMood() );
     }
 
     @Override

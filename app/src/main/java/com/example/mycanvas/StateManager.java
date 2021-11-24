@@ -7,7 +7,7 @@ class StateManager {
 
     private static Map userFavStocks;
     private static Map userMood;
-    private static int avgUserMood;
+    static int avgUserMood;
 
     public StateManager() {
         userFavStocks = new HashMap<>();

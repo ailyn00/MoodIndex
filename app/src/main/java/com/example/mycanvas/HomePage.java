@@ -1,5 +1,8 @@
 package com.example.mycanvas;
 
+import static com.example.mycanvas.MoodColor.moodColor;
+import static com.example.mycanvas.StateManager.avgUserMood;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +24,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
     private boolean isLogged = false;
 
     private int daysBefore = 15;
+
     private int avgUserMood = 0;
     private int avgUserMoodBefore = 0;
 
@@ -62,6 +66,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         Navigation navigation = new Navigation(HomePage.this, bottomNavigationView);
         navigation.initializeNavBar();
+
+        //Sets Moodbar Color according to average mood
+        TextView headerView = findViewById(R.id.header);
+        moodColor(headerView,avgUserMood);
     }
     @Override
     protected void onResume() {
@@ -175,5 +183,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 }
         );
 
+    }
+
+    public int getAvgUserMood() {
+        return avgUserMood;
     }
 }

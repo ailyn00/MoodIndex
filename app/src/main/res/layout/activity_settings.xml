@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/corner"
+        android:layout_marginTop="12dp"
+        android:background="?attr/colorPrimary"
         android:gravity="center"
         android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/app_name"
+        android:textColor="#5E35B1"
         android:textSize="30sp" />
-
 
     <ImageView
         android:id="@+id/logo"
@@ -124,8 +125,6 @@
         android:layout_marginBottom="100dp"
         android:gravity="center"
         android:text="@string/SignOut" />
-
-
 
 
 </RelativeLayout>

@@ -1,5 +1,8 @@
 package com.example.mycanvas;
 
+import static com.example.mycanvas.MoodColor.moodColor;
+import static com.example.mycanvas.StateManager.getAvgUserMood;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -69,6 +72,10 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         addFavStockBtn.setEnabled(false);
 
         fetchStock("", true);
+
+        //Sets Moodbar Color according to average mood
+        TextView headerView = findViewById(R.id.header);
+        moodColor(headerView,getAvgUserMood());
 
     }
 

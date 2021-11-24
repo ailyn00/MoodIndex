@@ -1,26 +1,27 @@
 package com.example.mycanvas;
 
-import androidx.annotation.NonNull;
+import static com.example.mycanvas.MoodColor.moodColor;
+import static com.example.mycanvas.StateManager.getAvgUserMood;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 
 public class settings extends AppCompatActivity implements View.OnClickListener {
 
-    TextView userinfo;
-
-
     FirebaseServices firebaseServices = new FirebaseServices();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +34,20 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         Button SignOut = findViewById(R.id.SignOut);
         SignOut.setOnClickListener(this);
+
+        //Setting Theme ---------------------------------------------------
+        Switch darkTheme = findViewById(R.id.DarkTheme);
+        setTheme(darkTheme);
+
+        //Sets Moodbar Color according to average mood
+        TextView headerView = findViewById(R.id.header);
+        moodColor(headerView,getAvgUserMood());
+
     }
+
     @Override
     public void onClick(View view) {
+
         switch(view.getId()) {
 
             case R.id.SignOut:
@@ -57,4 +69,38 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    public void setTheme(Switch _switch) {
+
+        boolean isNightMode = (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SWITCH",MODE_PRIVATE);
+        _switch.setChecked(sharedPreferences.getBoolean("value",true));
+
+        _switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                    if(isNightMode){
+
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        recreate();
+                    }
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCH",MODE_PRIVATE).edit();
+                editor.putBoolean("value",true);
+                editor.apply();
+                _switch.setChecked(true);
+            }else {
+                    if(!isNightMode){
+
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        recreate();
+                    }
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCH",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                _switch.setChecked(false);
+            }
+        });
+
+    }
 }

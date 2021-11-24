@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,14 +16,13 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<String> favStocks;
-    private  OnNoteListener mOnNoteListener;
+    private OnNoteListener mOnNoteListener;
 
-
-    public MyAdapter(){
+    public MyAdapter() {
 
     }
 
-    public MyAdapter(Context context, ArrayList<String> favStocks ,OnNoteListener onNoteListener) {
+    public MyAdapter(Context context, ArrayList<String> favStocks, OnNoteListener onNoteListener) {
         this.context = context;
         this.favStocks = favStocks;
         this.mOnNoteListener = onNoteListener;
@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @NonNull
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
 
         return new MyViewHolder(v, mOnNoteListener);
     }
@@ -44,34 +44,46 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        if(favStocks != null){
+        if (favStocks != null) {
             return favStocks.size();
         } else {
             return 0;
         }
     }
 
- public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    TextView textView;
-    OnNoteListener onNoteListener;
-     public MyViewHolder(@NonNull View itemView , OnNoteListener onNoteListener) {
+        TextView textView;
+        OnNoteListener onNoteListener;
+        Button delFavStockBtn;
 
-         super(itemView);
-         textView = itemView.findViewById(R.id.stock);
-         this.onNoteListener= onNoteListener;
-         itemView.setOnClickListener(this);
+        int position;
 
-     }
+        public MyViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
 
-     @Override
-     public void onClick(View v) {
-          onNoteListener.oNoteClick(getAdapterPosition());
-     }
- }
- public interface  OnNoteListener{
+            super(itemView);
+            textView = itemView.findViewById(R.id.stock);
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
+
+            delFavStockBtn = itemView.findViewById(R.id.delFavStockBtn);
+            delFavStockBtn.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch(v.getId()){
+                case R.id.delFavStockBtn:
+                    onNoteListener.delBtnClicked(getAdapterPosition());
+                    break;
+                default:
+                    onNoteListener.oNoteClick(getAdapterPosition());
+            }
+        }
+    }
+
+    public interface OnNoteListener {
         void oNoteClick(int position);
-
-
- }
+        void delBtnClicked(int position);
+    }
 }

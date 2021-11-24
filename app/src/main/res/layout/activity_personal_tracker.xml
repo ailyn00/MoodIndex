@@ -156,37 +156,40 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="380dp"
+                android:layout_height="532dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
                 app:cardCornerRadius="10dp"
-                app:cardElevation="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                >
+                app:cardElevation="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
 
                     android:orientation="vertical">
-            <TextView
-                android:id="@+id/watchlisttittle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="WatchList"
-                android:textSize="40sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/watchlisttittle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="WatchList"
+                        android:textSize="40sp"
+                        android:textStyle="bold" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/watchListView"
-                        android:visibility="visible"
-                          android:scrollbars="none"
-                        android:paddingTop="6dp"
-                        android:paddingLeft="6dp"
-                        android:paddingRight="6dp"
-                        android:paddingBottom="6dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingLeft="6dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="6dp"
+                        android:paddingBottom="6dp"
+                        android:scrollbars="vertical"
+                        android:visibility="visible"
 
                         />
                 </LinearLayout>

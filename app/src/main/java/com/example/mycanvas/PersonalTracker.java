@@ -36,7 +36,6 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private Map userFavStocks;
 
 
-
     private LockableScrollView lockableScrollView;
 
     private SeekBar moodBarBefore;
@@ -56,7 +55,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize Variables
         firebaseServices = new FirebaseServices();
-        stateManager = ((MoodIndexApp)getApplicationContext()).getStateManager();
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
 
         lockableScrollView = (LockableScrollView) findViewById(R.id.lockableScrollPersonal);
 
@@ -75,11 +74,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize RecyclerView
         watchListView = (RecyclerView) this.findViewById(R.id.watchListView);
-       // new LinearLayoutManager(PersonalTracker.this, LinearLayoutManager.VERTICAL, false);
-        //watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this));
         watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this, LinearLayoutManager.VERTICAL, false));
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(PersonalTracker.this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         watchListView.setAdapter(new MyAdapter());
 
 
@@ -237,8 +232,33 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     @Override
     public void oNoteClick(int position) {
         ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-      Intent intent= new Intent(this , analytics.class);
-      intent.putExtra("some", favStocks.get(position));
-      startActivity(intent);
+        Intent intent = new Intent(this, analytics.class);
+        intent.putExtra("some", favStocks.get(position));
+        startActivity(intent);
     }
+
+    @Override
+    public void delBtnClicked(int position) {
+        Map userFavStock = (Map) stateManager.getUserFavStocks();
+        ArrayList<String> favStocks = (ArrayList<String>) userFavStock.get("fav_stocks");
+        firebaseServices.deleteUserFavStock(favStocks.get(position), (String) userFavStock.get("id"), new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+
+            }
+
+            @Override
+            public void onSuccess(Object response) {
+                favStocks.remove(position);
+                userFavStock.remove("fav_stocks");
+                userFavStock.put("fav_stocks", favStocks);
+
+                stateManager.setUserFavStocks(userFavStock);
+                MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
+                watchListView.setAdapter(myAdapter);
+            }
+        });
+
+    }
+
 }

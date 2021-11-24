@@ -68,33 +68,35 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         addFavStockBtn.setOnClickListener(this);
         delFavStockBtn.setOnClickListener(this);
 
-       autoclicked();
+       autoClicked();
 
     }
 
-    public void autoclicked(){
+    public void autoClicked(){
         Intent intent = getIntent();
         String change = intent.getStringExtra("some");
-        et_stock_quote.setText(change);
-        requestService.getStockQuote(change, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
-            @Override
-            public void onError(String error) {
-                Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
-            }
+        if(change == null){
 
-            @Override
-            public void onResponse(String stock) {
+        } else {
+            et_stock_quote.setText(change);
+            requestService.getStockQuote(change, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
+                @Override
+                public void onError(String error) {
+                    Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
+                }
 
-            }
-       }  );
+                @Override
+                public void onResponse(String stock) {
+
+                }
+            });
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.fetchStockBtn:
-
-
                 requestService.getStockQuote(et_stock_quote.getText().toString(), high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
                     @Override
                     public void onError(String error) {
@@ -106,6 +108,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
                     }
                 });
+                break;
             case R.id.addFavStockBtn:
                 // Request Service benerin, kalo ada ticker yang ga valid masa toastnya masih success (Coba pake interface kaya di contoh youtube yg gw kasi ke lu dulu)
                 // Kalo pake interface yang kaya di youtube ato yang kaya di Firebase ini bakal kasi 2 class yg bisa nerima kalo onError ato onSuccess
@@ -144,6 +147,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         }
                     });
                 }
+                break;
             case R.id.deleteFavStockBtn:
                 if(isHaveStocksFav()){
                     if(!addStockInFav(et_stock_quote.getText().toString())){
@@ -163,6 +167,9 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         Toast.makeText(analytics.this, "You dont have this stock in your watchlist!", Toast.LENGTH_LONG).show();
                     }
                 }
+                break;
+            default:
+                break;
         }
     }
 

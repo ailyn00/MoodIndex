@@ -77,6 +77,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                 if (checkedId == R.id.btnDefault) {//Default
                     //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    recreate();
                 } else if (checkedId == R.id.btnDark) { //Dark
                     //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     if(isNightMode){
@@ -86,7 +87,6 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                         recreate();
                     }
                 } else if (checkedId == R.id.btnLight) {//Light
-                    //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     if(!isNightMode){
 
                     } else {

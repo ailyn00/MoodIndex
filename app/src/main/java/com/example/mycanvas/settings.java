@@ -1,5 +1,6 @@
 package com.example.mycanvas;
 
+import static android.app.UiModeManager.MODE_NIGHT_YES;
 import static com.example.mycanvas.MoodColor.moodColor;
 import static com.google.android.material.button.MaterialButtonToggleGroup.*;
 
@@ -19,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 
 public class settings extends AppCompatActivity implements View.OnClickListener {
+    //private static MaterialButtonToggleGroup buttonToggleGroup;
     FirebaseServices firebaseServices = new FirebaseServices();
 
 
@@ -37,25 +39,11 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         //Setting Theme ---------------------------------------------------
         MaterialButtonToggleGroup buttonToggleGroup = findViewById(R.id.btg_theme);
+        setTheme(buttonToggleGroup);
 
-        buttonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked) {
 
-                if (checkedId == R.id.btnDefault) {//Default
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                }
-                else if (checkedId == R.id.btnDark) { //Dark
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-                else if (checkedId == R.id.btnLight) {//Light
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-
-            }
-        });
-
-        TextView headerView = findViewById(R.id.header);
-        moodColor(headerView,100);
+//        TextView headerView = findViewById(R.id.header);
+//        moodColor(headerView,100);
 
     }
     @Override
@@ -80,5 +68,31 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                 break;
         }
     }
+
+    public void setTheme(MaterialButtonToggleGroup buttonToggleGroup) {
+
+        boolean isNightMode = (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+
+        buttonToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (isChecked) {
+                if (checkedId == R.id.btnDefault) {//Default
+                    //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+
+                } else if (checkedId == R.id.btnDark) { //Dark
+                    //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+
+                } else if (checkedId == R.id.btnLight) {//Light
+                    //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                }
+            }
+        });
+    }
+
 
 }

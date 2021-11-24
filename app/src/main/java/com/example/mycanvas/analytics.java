@@ -34,7 +34,6 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     TextView percent;
     Button fetchStockBtn;
     Button addFavStockBtn;
-    Button delFavStockBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +47,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         firebaseServices = new FirebaseServices();
         requestService = new RequestService(analytics.this);
-        stateManager = ((MoodIndexApp)getApplicationContext()).getStateManager();
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
 
         et_stock_quote = findViewById(R.id.et_stock); // Input Fields
 
@@ -63,60 +62,26 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         fetchStockBtn = findViewById(R.id.fetchStockBtn);
         addFavStockBtn = findViewById(R.id.addFavStockBtn);
-        delFavStockBtn = findViewById(R.id.deleteFavStockBtn);
         fetchStockBtn.setOnClickListener(this);
         addFavStockBtn.setOnClickListener(this);
-        delFavStockBtn.setOnClickListener(this);
 
-       autoClicked();
+        // Disable protection so user cannot use the button when the stock is not fetched.
+        addFavStockBtn.setEnabled(false);
 
-    }
+        fetchStock("", true);
 
-    public void autoClicked(){
-        Intent intent = getIntent();
-        String change = intent.getStringExtra("some");
-        if(change == null){
-
-        } else {
-            et_stock_quote.setText(change);
-            requestService.getStockQuote(change, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
-                @Override
-                public void onError(String error) {
-                    Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onResponse(String stock) {
-
-                }
-            });
-        }
     }
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.fetchStockBtn:
-                requestService.getStockQuote(et_stock_quote.getText().toString(), high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
-                    @Override
-                    public void onError(String error) {
-                        Toast.makeText(analytics .this ,"The ticker is error , try again later ", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onResponse(String stock) {
-
-                    }
-                });
+                fetchStock(et_stock_quote.getText().toString(), false);
                 break;
             case R.id.addFavStockBtn:
-                // Request Service benerin, kalo ada ticker yang ga valid masa toastnya masih success (Coba pake interface kaya di contoh youtube yg gw kasi ke lu dulu)
-                // Kalo pake interface yang kaya di youtube ato yang kaya di Firebase ini bakal kasi 2 class yg bisa nerima kalo onError ato onSuccess
-                // Kalo Error keluarnya toast
-                // kudunya di check isTickerValid ? if yes baru lanjut line bawah kalo else berarti kasi toast ticker invalid ato gimana....
-                if(isHaveStocksFav()){
+                if (isHaveStocksFav()) {
                     boolean needAdd = addStockInFav(et_stock_quote.getText().toString());
-                    if(needAdd){
+                    if (needAdd) {
                         firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) stateManager.getUserFavStocks()).get("id"), true, new FirebaseServices.FirebaseServicesListener() {
                             @Override
                             public void onError(String msg) {
@@ -125,7 +90,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
                             @Override
                             public void onSuccess(Object response) {
-                                setUserFavStock(et_stock_quote.getText().toString(), "", "",true);
+                                setUserFavStock(et_stock_quote.getText().toString(), "", "", true);
                                 Toast.makeText(analytics.this, "Successfully add symbol to the watchlist!", Toast.LENGTH_LONG).show();
                             }
                         });
@@ -142,30 +107,10 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         @Override
                         public void onSuccess(Object response) {
                             Map res = (Map) response;
-                            setUserFavStock(et_stock_quote.getText().toString(), (String) res.get("id"),(String) res.get("user_id"), false);
+                            setUserFavStock(et_stock_quote.getText().toString(), (String) res.get("id"), (String) res.get("user_id"), false);
                             Toast.makeText(analytics.this, "You are successfully add stock symbol to your watchlist!", Toast.LENGTH_LONG).show();
                         }
                     });
-                }
-                break;
-            case R.id.deleteFavStockBtn:
-                if(isHaveStocksFav()){
-                    if(!addStockInFav(et_stock_quote.getText().toString())){
-                        firebaseServices.deleteUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) stateManager.getUserFavStocks()).get("id"), new FirebaseServices.FirebaseServicesListener() {
-                            @Override
-                            public void onError(String msg) {
-                                Toast.makeText(analytics.this, "You failed to remove stock to the watchlist!", Toast.LENGTH_LONG).show();
-                            }
-
-                            @Override
-                            public void onSuccess(Object response) {
-                                delUserFavStock(et_stock_quote.getText().toString());
-                                Toast.makeText(analytics.this, "You successfully remove stock from the watchlist!", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(analytics.this, "You dont have this stock in your watchlist!", Toast.LENGTH_LONG).show();
-                    }
                 }
                 break;
             default:
@@ -173,29 +118,22 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    public boolean isTickerValid(){
-        // WARFRAME TROS LIAT LAH COMMENT NYA SEKALIAN DAH GTA V TROS
-        return false;
-    }
-
-    public boolean isHaveStocksFav(){
-        System.out.println(stateManager.getUserFavStocks().containsKey("id"));
-        if(!stateManager.getUserFavStocks().containsKey("id")) return false;
+    public boolean isHaveStocksFav() { ;
+        if (!stateManager.getUserFavStocks().containsKey("id")) return false;
         return true;
     }
 
-    public boolean addStockInFav(String name){
+    public boolean addStockInFav(String name) {
         ArrayList<String> userFavStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-        if(userFavStocks.indexOf(name) != -1) return false;
+        if (userFavStocks.indexOf(name) != -1) return false;
         return true;
     }
 
-    public void setUserFavStock(String name, String docId, String userId, boolean isHavingFav){
+    public void setUserFavStock(String name, String docId, String userId, boolean isHavingFav) {
 
-        if(isHavingFav){
-
+        if (isHavingFav) {
             Map userStockFav = ((Map) stateManager.getUserFavStocks());
-            ArrayList<String> oldUserStockFav =  (ArrayList<String>) userStockFav.get("fav_stocks");
+            ArrayList<String> oldUserStockFav = (ArrayList<String>) userStockFav.get("fav_stocks");
             oldUserStockFav.add(name);
             userStockFav.remove("fav_stocks");
             userStockFav.put("fav_stocks", oldUserStockFav);
@@ -213,12 +151,50 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
             stateManager.setUserFavStocks(userStockFav);
         }
     }
-    public void delUserFavStock(String name){
-        Map userStockFav = ((Map) stateManager.getUserFavStocks());
-        ArrayList<String> oldUserStockFav =  (ArrayList<String>) userStockFav.get("fav_stocks");
-        oldUserStockFav.remove(oldUserStockFav.indexOf(name));
-        userStockFav.remove("fav_stocks");
-        userStockFav.put("fav_stocks", oldUserStockFav);
-        stateManager.setUserFavStocks(userStockFav);
+
+    public void fetchStock(String name, boolean fromClick) {
+        if (fromClick) {
+            Intent intent = getIntent();
+            String change = intent.getStringExtra("some");
+            if (change == null) {
+                addFavStockBtn.setEnabled(false);
+            } else {
+                requestService.getStockQuote(change, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
+                    @Override
+                    public void onError(String error) {
+                        addFavStockBtn.setEnabled(false);
+                        Toast.makeText(analytics.this, error, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onResponse(String stock) {
+                        if(isHaveStocksFav() && addStockInFav(stock)){
+                            addFavStockBtn.setEnabled(true);
+                        } else if(!isHaveStocksFav()){
+                            addFavStockBtn.setEnabled(true);
+                        }
+                        et_stock_quote.setText(stock);
+                    }
+                });
+            }
+        } else {
+            requestService.getStockQuote(name, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
+                @Override
+                public void onError(String error) {
+                    Toast.makeText(analytics.this, error, Toast.LENGTH_SHORT).show();
+                    addFavStockBtn.setEnabled(false);
+                }
+
+                @Override
+                public void onResponse(String stock) {
+                    if(isHaveStocksFav() && addStockInFav(stock)){
+                        addFavStockBtn.setEnabled(true);
+                    } else if(!isHaveStocksFav()){
+                        addFavStockBtn.setEnabled(true);
+                    }
+                    addFavStockBtn.setEnabled(true);
+                }
+            });
+        }
     }
 }

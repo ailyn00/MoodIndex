@@ -17,9 +17,9 @@ import org.json.JSONObject;
 public class RequestService {
     public static final String QUERY_FOR_STOCK_DATA = "https://finnhub.io/api/v1/quote?symbol=";
     public static final String QUERY_API_TOKEN = "&token=c5tma92ad3ifck7diqg0";
-    public static final String QUERY_FOR_FINANCIAL_SYMBOLS= "https://finnhub.io/api/v1/stock/financials?symbol=";
-    public static final String QUERY_FOR_FINANCIAL_FORMAT ="&statement=";
-    public static final String QUERY_FOR_FINANCIAL_DURATION ="&freq=";
+    public static final String QUERY_FOR_FINANCIAL_SYMBOLS = "https://finnhub.io/api/v1/stock/financials?symbol=";
+    public static final String QUERY_FOR_FINANCIAL_FORMAT = "&statement=";
+    public static final String QUERY_FOR_FINANCIAL_DURATION = "&freq=";
     public static final String QUERY_SANDBOX_TOKEN = "&token=sandbox_c5tma92ad3ifck7diqgg";
     Context context;
 
@@ -28,14 +28,16 @@ public class RequestService {
         this.context = context;
 
     }
-    public interface StockQuoteListener{
+
+    public interface StockQuoteListener {
         void onError(String error);
 
-        void onResponse( String stock );
+        void onResponse(String stock);
     }
-    public void getStockQuote(String quote, TextView H , TextView L , TextView O , TextView P , TextView C , TextView T , TextView D , TextView DP, StockQuoteListener stockQuoteListener){
+
+    public void getStockQuote(String quote, TextView H, TextView L, TextView O, TextView P, TextView C, TextView T, TextView D, TextView DP, StockQuoteListener stockQuoteListener) {
         RequestQueue queue = Volley.newRequestQueue(context);
-        String url = QUERY_FOR_STOCK_DATA+quote+QUERY_API_TOKEN;
+        String url = QUERY_FOR_STOCK_DATA + quote + QUERY_API_TOKEN;
         JSONObject jsonObject = new JSONObject();
         final String requestBody = jsonObject.toString();
 
@@ -43,29 +45,21 @@ public class RequestService {
                 Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                try{
-
+                try {
                     JSONObject jo = new JSONObject(response.toString());
 
                     String current = jo.getString("c");
-                    String  changes = jo.getString("d");
-                    String  percentage = jo.getString("dp");
+                    String changes = jo.getString("d");
+                    String percentage = jo.getString("dp");
                     String high = jo.getString("h");
                     String low = jo.getString("l");
                     String open = jo.getString("o");
                     String previous = jo.getString("pc");
                     String tick = jo.getString("t");
-
-
-
-
-
-
-
-                      stockQuoteListener.onResponse(quote);
-                    if(percentage.equals("null")){
-                        Toast.makeText(context, "Ticker not available" ,Toast.LENGTH_LONG).show();
-                    }else {
+                    if (percentage.equals("null")) {
+                        stockQuoteListener.onError("[Request Service] Fetch stock failed, stock is not a valid stock.");
+                        Toast.makeText(context, "Ticker not available", Toast.LENGTH_LONG).show();
+                    } else {
                         C.setText(current);
                         D.setText(changes);
                         DP.setText(percentage);
@@ -74,30 +68,19 @@ public class RequestService {
                         O.setText(open);
                         P.setText(previous);
                         T.setText(tick);
-                        Toast.makeText(context, "success" ,Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "[Request Service] Successfully fetch stock quote data.", Toast.LENGTH_SHORT).show();
+                        stockQuoteListener.onResponse(quote);
                     }
-
-
-
-
-
-
-                }catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
-
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                Toast.makeText(context,"error",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
             }
-        }
-
-
-        );
+        });
         MySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 }

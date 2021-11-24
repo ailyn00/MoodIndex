@@ -43,31 +43,30 @@
             />
 
         <Button
-            android:layout_marginTop="10dp"
             android:id="@+id/fetchStockBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_below="@+id/et_stock"
+
+            android:layout_alignStart="@+id/et_stock"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
             android:text="stock quote" />
+
         <Button
             android:id="@+id/addFavStockBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-              android:layout_alignBaseline="@id/fetchStockBtn"
-            android:layout_toEndOf="@id/fetchStockBtn"
-            android:layout_marginLeft="10dp"
             android:layout_below="@+id/fetchStockBtn"
-            android:text="add " />
-        <Button
-            android:id="@+id/deleteFavStockBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignBaseline="@id/fetchStockBtn"
-            android:layout_toEndOf="@id/addFavStockBtn"
+            android:layout_alignEnd="@+id/et_stock"
+            android:layout_marginStart="96dp"
             android:layout_marginLeft="10dp"
-            android:layout_below="@+id/fetchStockBtn"
-            android:text="delete " />
+            android:layout_marginTop="-50dp"
+            android:layout_marginEnd="37dp"
+            android:layout_toEndOf="@id/fetchStockBtn"
+            android:text="add " />
+
         <androidx.cardview.widget.CardView
 
             android:id="@+id/result_current"

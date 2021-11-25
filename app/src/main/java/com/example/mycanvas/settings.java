@@ -1,7 +1,6 @@
 package com.example.mycanvas;
 
 import static com.example.mycanvas.MoodColor.moodColor;
-import static com.example.mycanvas.StateManager.getAvgUserMood;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -69,7 +68,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(Object response) {
                         System.out.println(response);
-                        startActivity(new Intent(settings.this, MainActivity.class));
+                        startActivity(new Intent(settings.this, Login.class));
                     }
                 });
                 break;

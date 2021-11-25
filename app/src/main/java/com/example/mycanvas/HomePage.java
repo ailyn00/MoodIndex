@@ -1,7 +1,6 @@
 package com.example.mycanvas;
 
 import static com.example.mycanvas.MoodColor.moodColor;
-import static com.example.mycanvas.StateManager.avgUserMood;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -96,7 +95,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                     @Override
                     public void onSuccess(Object response) {
                         System.out.println(response);
-                        startActivity(new Intent(HomePage.this, MainActivity.class));
+                        startActivity(new Intent(HomePage.this, Login.class));
                     }
                 });
                 break;
@@ -117,7 +116,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             public void onSuccess(Object response) {
                 isLogged = (boolean) response;
                 if(!isLogged){
-                    startActivity(new Intent(HomePage.this, MainActivity.class));
+                    startActivity(new Intent(HomePage.this, Login.class));
                 }
             }
         });

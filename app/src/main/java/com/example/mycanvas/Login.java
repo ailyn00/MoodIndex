@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class Login extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextemail;
     private TextInputEditText editTextPassword;
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onClick(@NonNull View view) {
                 switch (view.getId()) {
                     case R.id.SignUp:
-                        startActivity(new Intent(MainActivity.this, RegisterUser.class));
+                        startActivity(new Intent(com.example.mycanvas.Login.this, RegisterUser.class));
                         break;
 
                 }
@@ -123,12 +123,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firebaseServices.userLogin(email, password, new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(MainActivity.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.example.mycanvas.Login.this, "Failed to Login! Please check your credentials", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onSuccess(Object response) {
-                startActivity(new Intent(MainActivity.this, HomePage.class));
+                startActivity(new Intent(com.example.mycanvas.Login.this, HomePage.class));
             }
         });
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firebaseServices.isLoggedIn(new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(MainActivity.this, "Failed to check authentication! Please check your credentials", Toast.LENGTH_LONG).show();
+                Toast.makeText(com.example.mycanvas.Login.this, "Failed to check authentication! Please check your credentials", Toast.LENGTH_LONG).show();
                 isLogged = false;
             }
 
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(Object response) {
                 isLogged = (boolean) response;
                 if(isLogged){
-                    startActivity(new Intent(MainActivity.this, HomePage.class));
+                    startActivity(new Intent(com.example.mycanvas.Login.this, HomePage.class));
                 }
             }
         });

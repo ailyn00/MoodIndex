@@ -34,9 +34,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header"
-            app:srcCompat="@mipmap/ic_icon"
+            app:srcCompat="@mipmap/ic_icon_foreground"
             tools:ignore="ImageContrastCheck,ImageContrastCheck"
-            tools:srcCompat="@mipmap/ic_icon" />
+            tools:srcCompat="@mipmap/ic_icon_foreground" />
 
         <TextView
             android:id="@+id/about"

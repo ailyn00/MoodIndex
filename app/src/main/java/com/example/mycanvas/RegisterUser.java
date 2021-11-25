@@ -2,7 +2,6 @@ package com.example.mycanvas;
 
 import static android.content.ContentValues.TAG;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,18 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -130,7 +121,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             public void onSuccess(Object response) {
                 Log.d(TAG, (String) response);
                 Toast.makeText(RegisterUser.this, "Successfully register, please login!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(RegisterUser.this, MainActivity.class));
+                startActivity(new Intent(RegisterUser.this, Login.class));
             }
         });
     }

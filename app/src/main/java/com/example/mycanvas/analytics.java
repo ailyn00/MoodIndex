@@ -183,6 +183,8 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                             addFavStockBtn.setEnabled(true);
                         } else if(!isHaveStocksFav()){
                             addFavStockBtn.setEnabled(true);
+                        } else {
+                            addFavStockBtn.setEnabled(false);
                         }
                         et_stock_quote.setText(stock);
                     }
@@ -202,8 +204,9 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         addFavStockBtn.setEnabled(true);
                     } else if(!isHaveStocksFav()){
                         addFavStockBtn.setEnabled(true);
+                    } else {
+                        addFavStockBtn.setEnabled(false);
                     }
-                    addFavStockBtn.setEnabled(true);
                 }
             });
         }

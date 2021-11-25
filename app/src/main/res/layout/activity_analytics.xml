@@ -89,7 +89,7 @@
 
                 <TextView
                     android:id="@+id/current_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/CP"
@@ -274,7 +274,7 @@
 
                 <TextView
                     android:id="@+id/previous_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/PP"
@@ -370,7 +370,7 @@
 
                 <TextView
                     android:id="@+id/changes_price"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/ChangeP"
@@ -419,7 +419,7 @@
 
                 <TextView
                     android:id="@+id/percentage_value"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/P"

@@ -74,7 +74,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         boolean isNightMode = (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
 
         SharedPreferences sharedPreferences = getSharedPreferences("SWITCH",MODE_PRIVATE);
-        _switch.setChecked(sharedPreferences.getBoolean("value",true));
+        _switch.setChecked(sharedPreferences.getBoolean("value",false));
 
         _switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked){

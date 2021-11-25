@@ -45,6 +45,26 @@
     <string name="dark">Dark</string>
     <string name="light">Light</string>
     <string name="Default">default</string>
-    Default
+
+    <!-- String for Analytics-->
+    <string name="search">Search</string>
+    <string name="AddtoWL">Add</string>
+    <string name="SQ">Enter Stock Quote</string>
+
+    <string name="CP">Current Price</string>
+    <string name="HP">  High Price</string>
+    <string name="OP">Open Price</string>
+    <string name="LP">Low Price</string>
+    <string name="PP">Previous Price</string>
+    <string name="Tick"> Tick</string>
+    <string name="ChangeP">Changed Price</string>
+    <string name="P">Percentage</string>
+
+    <!-- String for Settings-->
+    <string name="DarkMode">Dark mode</string>
+    <string name="About">About - version 1.0.1 </string>
+    <string name="ContactDev"> Contact Us</string>
+
+    <string name="ouremail"> TheAbsurd.one@gmail.com</string>
 
 </resources>

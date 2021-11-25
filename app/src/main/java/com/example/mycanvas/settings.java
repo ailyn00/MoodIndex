@@ -22,7 +22,6 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
     FirebaseServices firebaseServices = new FirebaseServices();
     StateManager stateManager;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +50,8 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         //int avgUserMood = stateManager.getAvgUserMood();
         // Or you can set the value
         //stateManager.setAvgUserMood(someVal);
+
+
     }
 
     @Override

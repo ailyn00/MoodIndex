@@ -199,10 +199,10 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 usrAvgMoodVal -= 100;
                 stateManager.setAvgUserMood(usrAvgMoodVal);
                 if (usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100) {
-                    descMoodBeforeTxt.setText("You feels negative in the past few days.");
+                    descMoodBeforeTxt.setText("You felt negative in the past few days.");
                     pctgBeforeTxt.setText(String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.
                 } else {
-                    descMoodBeforeTxt.setText("You feels feels positive in the past few days.");
+                    descMoodBeforeTxt.setText("You felt positive in the past few days.");
                     pctgBeforeTxt.setText("+" + String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.
                 }
             }

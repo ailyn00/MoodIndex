@@ -3,27 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../layout/custom_preview.xml" value="0.296875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/corner.xml" value="0.3671875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/edit_text_border.xml" value="0.3828125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/home.xml" value="0.3828125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/ic_email_black_background.xml" value="0.3828125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/ic_email_black_foreground.xml" value="0.3828125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/ic_launcher_background.xml" value="0.21770833333333334" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/itemcorner.xml" value="0.3828125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/personal_tracker.xml" value="0.3828125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/drawable/settings.xml" value="0.3828125" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout-v21/activity_analytics.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_analytics.xml" value="0.42900670322973794" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_home_page.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_personal_tracker.xml" value="0.32472826086956524" />
         <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_register_user.xml" value="0.33" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_analytics.xml" value="0.22192028985507245" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_home_page.xml" value="0.2269021739130435" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_personal_tracker.xml" value="0.22192028985507245" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_register_user.xml" value="0.2269021739130435" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
-        <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/menu/bottom_menu.xml" value="0.26614583333333336" />
-        <entry key="app/src/main/res/drawable/analytics.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/drawable/corner.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/drawable/home.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/drawable/settings.xml" value="0.18489583333333334" />
-        <entry key="app/src/main/res/layout/activity_analytics.xml" value="0.33" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/layout/activity_settings.xml" value="0.3911353032659409" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3671875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/MoodIndex/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3671875" />
+        <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_personal_tracker.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/layout/activity_settings.xml" value="0.22708333333333333" />
+        <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.33" />
       </map>
     </option>
   </component>

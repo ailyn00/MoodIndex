@@ -25,9 +25,9 @@
             android:layout_height="178dp"
             android:layout_marginTop="48dp"
             android:contentDescription="@string/logo"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@mipmap/ic_icon"
             tools:ignore="ImageContrastCheck,ImageContrastCheck"
-            tools:srcCompat="@mipmap/ic_launcher" />
+            tools:srcCompat="@mipmap/ic_icon" />
 
         <TextView
             android:id="@+id/CreateAcc"

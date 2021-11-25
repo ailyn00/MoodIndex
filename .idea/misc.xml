@@ -18,10 +18,12 @@
         <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_register_user.xml" value="0.2269021739130435" />
         <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/layout/activity_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/XJTLU/Y4/CAN 301 - Mobile Computing/MoodIndex/app/src/main/res/menu/bottom_menu.xml" value="0.26614583333333336" />
-<<<<<<< HEAD
+        <entry key="app/src/main/res/drawable/analytics.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/drawable/corner.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/drawable/home.xml" value="0.18489583333333334" />
+        <entry key="app/src/main/res/drawable/settings.xml" value="0.18489583333333334" />
         <entry key="app/src/main/res/layout/activity_analytics.xml" value="0.33" />
-=======
->>>>>>> Theme
       </map>
     </option>
   </component>

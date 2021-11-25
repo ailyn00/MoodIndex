@@ -39,21 +39,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
         //initialise
+        firebaseServices = new FirebaseServices();
+
+        // Check if user already login
+        isLoggedIn();
+
         Login = (Button) findViewById(R.id.login);
         Login.setOnClickListener((View.OnClickListener) this);
 
         editTextemail = (EditText) findViewById(R.id.Email);
         editTextPassword = (TextInputEditText) findViewById(R.id.Password);
 
-        firebaseServices = new FirebaseServices();
-
         TextView textView = findViewById(R.id.SignUp);
 
-        // Check if user already login
-        isLoggedIn();
-
         //make "Sign Up clickable"
-
         String text = "Sign Up now!";
 
         SpannableString ss = new SpannableString(text);
@@ -90,7 +89,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
     }
+    //---------- Functions ----------
+    /*
+        userLogin function
+        parameters null
+        return void
 
+        This function is to handle user when click login button
+        it will call firebase service and update the UI according to the result of firebase.
+     */
     private void userLogin() {
         String email = editTextemail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -133,7 +140,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         });
 
     }
+    //---------- Functions ----------
 
+    //---------- Helpers ----------
     private void isLoggedIn() {
         firebaseServices.isLoggedIn(new FirebaseServices.FirebaseServicesListener() {
             @Override
@@ -151,4 +160,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
+    //---------- Helpers ----------
 }

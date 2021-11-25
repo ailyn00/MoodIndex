@@ -17,8 +17,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Map;
 
 public class HomePage extends AppCompatActivity implements View.OnClickListener{
-    StateManager stateManager;
-    FirebaseServices firebaseServices = new FirebaseServices();
+    private StateManager stateManager;
+    private FirebaseServices firebaseServices = new FirebaseServices();
 
     private boolean isLogged = false;
 
@@ -26,6 +26,8 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
     private int avgUserMood = 0;
     private int avgUserMoodBefore = 0;
+
+    private TextView headerView;
 
     private SeekBar avgMoodSeekBar;
     private TextView avgPctgTxt;
@@ -67,7 +69,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         navigation.initializeNavBar();
 
         //Sets Mood bar Color according to average mood
-        TextView headerView = findViewById(R.id.header);
+        headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
         moodColor(headerView,stateManager.getAvgUserMood());
     }
@@ -80,6 +82,9 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
 
         // Fetch Average User Mood on Resume.
         fetchUsersMoodVal();
+
+        // Change the header color based on mood value
+        moodColor(headerView,stateManager.getAvgUserMood());
     }
 
     @Override

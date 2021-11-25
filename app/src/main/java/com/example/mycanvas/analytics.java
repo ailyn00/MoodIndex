@@ -22,21 +22,22 @@ import java.util.Map;
 
 public class analytics extends AppCompatActivity implements View.OnClickListener {
 
-    FirebaseServices firebaseServices;
-    RequestService requestService;
-    StateManager stateManager;
+    private FirebaseServices firebaseServices;
+    private RequestService requestService;
+    private StateManager stateManager;
 
-    EditText et_stock_quote;
-    TextView current_price;
-    TextView open_price;
-    TextView high_price;
-    TextView low_price;
-    TextView previous_price;
-    TextView tick;
-    TextView changes;
-    TextView percent;
-    Button fetchStockBtn;
-    Button addFavStockBtn;
+    private TextView headerView;
+    private EditText et_stock_quote;
+    private TextView current_price;
+    private TextView open_price;
+    private TextView high_price;
+    private TextView low_price;
+    private TextView previous_price;
+    private TextView tick;
+    private TextView changes;
+    private TextView percent;
+    private Button fetchStockBtn;
+    private Button addFavStockBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +75,18 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         fetchStock("", true);
 
         //Sets Mood bar Color according to average mood
-        TextView headerView = findViewById(R.id.header);
+        headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
         moodColor(headerView,stateManager.getAvgUserMood());
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Change header color on resume based on mood
+        moodColor(headerView,stateManager.getAvgUserMood());
     }
 
     @Override
@@ -128,6 +137,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    //---------- Validations ----------
     public boolean isHaveStocksFav() { ;
         if (!stateManager.getUserFavStocks().containsKey("id")) return false;
         return true;
@@ -138,7 +148,16 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         if (userFavStocks.indexOf(name) != -1) return false;
         return true;
     }
+    //---------- Validations ----------
 
+    //---------- Helpers ----------
+    /*
+        setUserFavStock function
+        parameters String name, String docId, string userId, boolean isHavingFav
+        return void
+
+        This function to handle UI State change when user successfully add the stock name to watchlist on firebase.
+     */
     public void setUserFavStock(String name, String docId, String userId, boolean isHavingFav) {
 
         if (isHavingFav) {
@@ -162,6 +181,14 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /*
+        fetchStock function
+        parameters String name, boolean fromClick
+        return void
+
+        This function for handle the fetch stock request
+        The bool fromClick to know whether the fetch from the search button or from change activity.
+     */
     public void fetchStock(String name, boolean fromClick) {
         addFavStockBtn.setEnabled(false);
         if (fromClick) {
@@ -211,4 +238,5 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
             });
         }
     }
+    //---------- Helpers ----------
 }

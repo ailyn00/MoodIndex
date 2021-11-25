@@ -110,6 +110,16 @@ public class FirebaseServices {
         firebaseServicesListener.onSuccess("Sign Out!");
     }
 
+    /*
+        usersMoodChange function
+        parameters  int val, String id, boolean update FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function to handle insert and update request on firebase,
+        when user submit their mood value from seekbar this function will do the firebase request whether the user already submit the mood value today or not.
+        If not this function will create new one on the firebase
+        if already submit mood value for today this function will update the value
+    */
     public void userMoodChange(int val, String id, boolean update, FirebaseServicesListener firebaseServicesListener) {
         // Handle firebase service to edit / create new mood database if not exists in the same day.
         if (update) {
@@ -163,6 +173,14 @@ public class FirebaseServices {
         }
     }
 
+    /*
+        usersMoodFetch function
+        parameters FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function to handle get request on firebase,
+        the firebase return will return  user mood value according user mood value today.
+    */
     public void userMoodFetch(FirebaseServicesListener firebaseServicesListener) {
         // Handle firebase service to get user mood
         FirebaseUser user = mAuth.getCurrentUser();
@@ -185,6 +203,14 @@ public class FirebaseServices {
         });
     }
 
+    /*
+        userMoodFetchBefore function
+        parameters  int n, FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function to handle get request on firebase,
+        the firebase return will return user mood value according the range of n days before today.
+    */
     public void userMoodFetchBefore(int n, FirebaseServicesListener firebaseServicesListener) {
         // Handle firebase service to get user mood
         FirebaseUser user = mAuth.getCurrentUser();
@@ -198,10 +224,10 @@ public class FirebaseServices {
                     int averageMood = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map userMood = (Map) document.getData();
-                        averageMood += (int)(long) userMood.get("value");
+                        averageMood += (int) (long) userMood.get("value");
 
                     }
-                    if(task.getResult().size() > 0){
+                    if (task.getResult().size() > 0) {
                         averageMood /= task.getResult().size();
                     } else {
                         averageMood = 0;
@@ -214,7 +240,15 @@ public class FirebaseServices {
         });
     }
 
-    public void usersMoodAverage(FirebaseServicesListener firebaseServicesListener){
+    /*
+        usersMoodAverage function
+        parameters FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function to handle get request on firebase,
+        the firebase return will return bunch of users mood value in the range of today.
+    */
+    public void usersMoodAverage(FirebaseServicesListener firebaseServicesListener) {
         fStore.collection("user_moods")
                 .whereGreaterThanOrEqualTo("time", atStartOfDay(new Date())) // Need to be generalized using UTC+8?
                 .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
@@ -227,7 +261,7 @@ public class FirebaseServices {
                         Map userMood = (Map) document.getData();
                         averageMood += (int) (long) userMood.get("value");
                     }
-                    if(task.getResult().size() > 0){
+                    if (task.getResult().size() > 0) {
                         averageMood /= task.getResult().size();
                     } else {
                         averageMood = 0;
@@ -240,7 +274,15 @@ public class FirebaseServices {
         });
     }
 
-    public void usersMoodAverageBefore(int n, FirebaseServicesListener firebaseServicesListener){
+    /*
+        usersMoodAverageBefore function
+        parameters  int n, FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function to handle get request on firebase,
+        the firebase return will return bunch of users mood value according the range of n days before today.
+    */
+    public void usersMoodAverageBefore(int n, FirebaseServicesListener firebaseServicesListener) {
         fStore.collection("user_moods")
                 .whereGreaterThanOrEqualTo("time", nDaysBefore(n, new Date())) // Need to be generalized using UTC+8?
                 .whereLessThanOrEqualTo("time", atEndOfDay(new Date())) // Need to be generalized using UTC+8?
@@ -253,7 +295,7 @@ public class FirebaseServices {
                         Map userMood = (Map) document.getData();
                         averageMood += (int) (long) userMood.get("value");
                     }
-                    if(task.getResult().size() > 0){
+                    if (task.getResult().size() > 0) {
                         averageMood /= task.getResult().size();
                     } else {
                         averageMood = 0;
@@ -266,7 +308,15 @@ public class FirebaseServices {
         });
     }
 
-    public void addUserFavStock(String name, String docId, boolean isExists, FirebaseServicesListener firebaseServicesListener){
+    /*
+        addUserFavStocks function
+        parameters  String name, String docId, boolean isExists, FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function will handle firebase post request to add stock name from user favorite stock list or watchlist.
+        If the user does not have or have not add or create watchlist this function will also create the creation of user watchlist
+    */
+    public void addUserFavStock(String name, String docId, boolean isExists, FirebaseServicesListener firebaseServicesListener) {
         if (!isExists) {
             Map<String, Object> userFav = new HashMap<>();
             userFav.put("user_id", mAuth.getCurrentUser().getUid());
@@ -276,7 +326,7 @@ public class FirebaseServices {
             fStore.collection("user_fav_stocks").add(userFav).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentReference> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         DocumentReference document = task.getResult();
                         Map<String, Object> response = new HashMap<>();
                         response.put("id", (String) document.getId());
@@ -295,10 +345,10 @@ public class FirebaseServices {
             newFavStockRef.update("fav_stocks", FieldValue.arrayUnion(name)).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         // Handle async process place when done addition or task
                         firebaseServicesListener.onSuccess("Successfully add new fav stock");
-                    }else {
+                    } else {
                         // Handle async process place when error doing addition or task
                         firebaseServicesListener.onError("Failed add new fav stock");
                     }
@@ -307,15 +357,22 @@ public class FirebaseServices {
         }
     }
 
-    public void deleteUserFavStock(String name, String docId, FirebaseServicesListener firebaseServicesListener){
+    /*
+        deleteUserFavStocks function
+        parameters  String name, String docId, FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function will handle firebase delete request to delete stock name from user favorite stock list or watchlist.
+     */
+    public void deleteUserFavStock(String name, String docId, FirebaseServicesListener firebaseServicesListener) {
         DocumentReference newFavStockRef = fStore.collection("user_fav_stocks").document(docId);
         newFavStockRef.update("fav_stocks", FieldValue.arrayRemove(name)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     // Handle async process place when done removal or task
                     firebaseServicesListener.onSuccess("Successfully add new fav stock");
-                }else {
+                } else {
                     // Handle async process place when error removal or task
                     firebaseServicesListener.onError("Failed add new fav stock");
                 }
@@ -323,33 +380,40 @@ public class FirebaseServices {
         });
     }
 
-    public void fetchUserFavStocks(FirebaseServicesListener firebaseServicesListener){
+    /*
+        fetchUserFavStocks function
+        parameters  FirebaseServiceListener firebaseServiceListener
+        return void
+
+        This function will handle firebase get request to get user favorite stock list or watchlist.
+     */
+    public void fetchUserFavStocks(FirebaseServicesListener firebaseServicesListener) {
         fStore.collection("user_fav_stocks")
                 .whereEqualTo("user_id", mAuth.getCurrentUser().getUid())
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Map<String, Object> userFavStocks = new HashMap<>();
-                    for(QueryDocumentSnapshot document : task.getResult()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
                         userFavStocks = (Map) document.getData();
                         userFavStocks.put("id", document.getId());
                     }
                     /*
-                    Will return response when declare the function with keys map of
+                    Will return response of Map Object with keys of
                     "id" <= String
                     "user_id" <= String
-                    "fav_stocks" <= Array Object (?)
+                    "fav_stocks" <= ArrayList
                      */
                     firebaseServicesListener.onSuccess(userFavStocks);
-                }else {
+                } else {
                     firebaseServicesListener.onError("Failed to get user favorite stocks");
                 }
             }
         });
     }
 
-    // Helpers
+    //---------- Helpers ----------
     public Date atEndOfDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -370,7 +434,7 @@ public class FirebaseServices {
         return calendar.getTime();
     }
 
-    public Date nDaysBefore(int n, Date date){
+    public Date nDaysBefore(int n, Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DATE, -n);
@@ -380,5 +444,6 @@ public class FirebaseServices {
         calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
+    //---------- Helpers ----------
 
 }

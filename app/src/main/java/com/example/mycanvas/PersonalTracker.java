@@ -31,6 +31,8 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private FirebaseServices firebaseServices;
     private StateManager stateManager;
 
+    private TextView headerView;
+
     private SeekBar moodBar;
     private TextView pctgTxt;
     private Button submitBtn;
@@ -90,9 +92,9 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         navigation.initializeNavBar();
 
         //Sets Mood bar Color according to average mood
-        TextView headerView = findViewById(R.id.header);
+        headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView, stateManager.getAvgUserMood());
     }
 
     @Override
@@ -100,7 +102,12 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         super.onResume();
         // Fetch personal state data on resume
         fetchPersonalData();
+
+        // Fetch user favorite stocks list or watchlist
         fetchFavStocks();
+
+        // Change header according to mood color
+        moodColor(headerView, stateManager.getAvgUserMood());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -115,8 +122,6 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                     submitBtn.setBackgroundTintList(this.getResources().getColorStateList(R.color.green));
                     pctgTxt.setText("+" + Integer.toString(progressCalculation(i)) + "%");
                 }
-                break;
-            case R.id.moodSeekBarBefore:
                 break;
             default:
                 break;
@@ -164,10 +169,62 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         }
     }
 
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN)
+            lockableScrollView.setScrollingEnabled(false);
+        else if (event.getAction() == MotionEvent.ACTION_UP)
+            lockableScrollView.setScrollingEnabled(false);
+        return false;
+    }
+
+    @Override
+    public void oNoteClick(int position) {
+        ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
+        Intent intent = new Intent(this, analytics.class);
+        intent.putExtra("some", favStocks.get(position));
+        startActivity(intent);
+    }
+
+    @Override
+    public void delBtnClicked(int position) {
+        Map userFavStock = (Map) stateManager.getUserFavStocks();
+        ArrayList<String> favStocks = (ArrayList<String>) userFavStock.get("fav_stocks");
+        firebaseServices.deleteUserFavStock(favStocks.get(position), (String) userFavStock.get("id"), new FirebaseServices.FirebaseServicesListener() {
+            @Override
+            public void onError(String msg) {
+
+            }
+
+            @Override
+            public void onSuccess(Object response) {
+                favStocks.remove(position);
+                userFavStock.remove("fav_stocks");
+                userFavStock.put("fav_stocks", favStocks);
+
+                stateManager.setUserFavStocks(userFavStock);
+                MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
+                watchListView.setAdapter(myAdapter);
+            }
+        });
+
+    }
+
+    //---------- Helpers ----------
     public int progressCalculation(int val) {
         return (val - 100);
     }
+    //---------- Helpers ----------
 
+    //---------- Functions ----------
+    /*
+        fetchPersonalData function
+        parameters none
+        return void
+
+        This function to handle fetch user mood value from the database
+        and handle the UI change according to database value.
+     */
     private void fetchPersonalData() {
         firebaseServices.userMoodFetch(new FirebaseServices.FirebaseServicesListener() {
             @Override
@@ -209,16 +266,14 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         });
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-            lockableScrollView.setScrollingEnabled(false);
-        else if (event.getAction() == MotionEvent.ACTION_UP)
-            lockableScrollView.setScrollingEnabled(false);
-        return false;
-    }
+    /*
+        fetchFavStocks function
+        parameters none
+        return void
 
-
+        This function to handle fetch user favorite stocks or user watchlist value from the database
+        and handle the UI change according to database value.
+     */
     public void fetchFavStocks() {
         firebaseServices.fetchUserFavStocks(
                 new FirebaseServices.FirebaseServicesListener() {
@@ -238,37 +293,5 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         );
 
     }
-
-    @Override
-    public void oNoteClick(int position) {
-        ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-        Intent intent = new Intent(this, analytics.class);
-        intent.putExtra("some", favStocks.get(position));
-        startActivity(intent);
-    }
-
-    @Override
-    public void delBtnClicked(int position) {
-        Map userFavStock = (Map) stateManager.getUserFavStocks();
-        ArrayList<String> favStocks = (ArrayList<String>) userFavStock.get("fav_stocks");
-        firebaseServices.deleteUserFavStock(favStocks.get(position), (String) userFavStock.get("id"), new FirebaseServices.FirebaseServicesListener() {
-            @Override
-            public void onError(String msg) {
-
-            }
-
-            @Override
-            public void onSuccess(Object response) {
-                favStocks.remove(position);
-                userFavStock.remove("fav_stocks");
-                userFavStock.put("fav_stocks", favStocks);
-
-                stateManager.setUserFavStocks(userFavStock);
-                MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
-                watchListView.setAdapter(myAdapter);
-            }
-        });
-
-    }
-
+    //---------- Functions ----------
 }

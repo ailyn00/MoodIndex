@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
@@ -43,14 +44,6 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
         moodColor(headerView,stateManager.getAvgUserMood());
 
-        // Initialize StateManager
-        //stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager(); // this will get the stateManager that initialize in MoodIndexApp application class
-        // After the initialization you can use it to get the variable such as
-        //int avgUserMood = stateManager.getAvgUserMood();
-        // Or you can set the value
-        //stateManager.setAvgUserMood(someVal);
-
-
     }
 
     @Override
@@ -62,12 +55,12 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                 firebaseServices.userSignOut(new FirebaseServices.FirebaseServicesListener() {
                     @Override
                     public void onError(String msg) {
-                        System.out.println(msg);
+                        Log.d("[Firebase Service]", "Failed to log out, please try again later!");
                     }
 
                     @Override
                     public void onSuccess(Object response) {
-                        System.out.println(response);
+                        Log.d("[Firebase Service]", "Successfully to log out from the application.");
                         startActivity(new Intent(settings.this, Login.class));
                     }
                 });

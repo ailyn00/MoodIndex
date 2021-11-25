@@ -73,9 +73,10 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         fetchStock("", true);
 
-        //Sets Moodbar Color according to average mood
+        //Sets Mood bar Color according to average mood
         TextView headerView = findViewById(R.id.header);
-        moodColor(headerView,getAvgUserMood());
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
+        moodColor(headerView,stateManager.getAvgUserMood());
 
     }
 

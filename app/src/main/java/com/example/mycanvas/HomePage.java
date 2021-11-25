@@ -67,9 +67,10 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         Navigation navigation = new Navigation(HomePage.this, bottomNavigationView);
         navigation.initializeNavBar();
 
-        //Sets Moodbar Color according to average mood
+        //Sets Mood bar Color according to average mood
         TextView headerView = findViewById(R.id.header);
-        moodColor(headerView,avgUserMood);
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
+        moodColor(headerView,stateManager.getAvgUserMood());
     }
     @Override
     protected void onResume() {

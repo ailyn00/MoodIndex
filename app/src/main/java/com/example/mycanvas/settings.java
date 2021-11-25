@@ -40,14 +40,15 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         Switch darkTheme = findViewById(R.id.DarkTheme);
         setTheme(darkTheme);
 
-        //Sets Moodbar Color according to average mood
+        //Sets Mood bar Color according to average mood
         TextView headerView = findViewById(R.id.header);
-        moodColor(headerView,getAvgUserMood());
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
+        moodColor(headerView,stateManager.getAvgUserMood());
 
         // Initialize StateManager
-        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager(); // this will get the stateManager that initialize in MoodIndexApp application class
+        //stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager(); // this will get the stateManager that initialize in MoodIndexApp application class
         // After the initialization you can use it to get the variable such as
-        int avgUserMood = stateManager.getAvgUserMood();
+        //int avgUserMood = stateManager.getAvgUserMood();
         // Or you can set the value
         //stateManager.setAvgUserMood(someVal);
     }

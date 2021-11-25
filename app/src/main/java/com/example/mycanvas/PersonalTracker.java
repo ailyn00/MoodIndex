@@ -188,6 +188,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             public void onError(String msg) {
                 Toast.makeText(PersonalTracker.this, "Failed to fetch average user mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
                 usrAvgMoodVal = 0;
+                stateManager.setAvgUserMood(usrAvgMoodVal);
             }
 
             @Override
@@ -195,6 +196,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 usrAvgMoodVal = (int) response;
                 moodBarBefore.setProgress(usrAvgMoodVal);
                 usrAvgMoodVal -= 100;
+                stateManager.setAvgUserMood(usrAvgMoodVal);
                 if (usrAvgMoodVal <= 0 && usrAvgMoodVal >= -100) {
                     descMoodBeforeTxt.setText("You feels negative in the past few days.");
                     pctgBeforeTxt.setText(String.valueOf(usrAvgMoodVal) + "%");// In this line to change the average mood in the percentage text.

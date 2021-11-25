@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class settings extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseServices firebaseServices = new FirebaseServices();
+    StateManager stateManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,12 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         TextView headerView = findViewById(R.id.header);
         moodColor(headerView,getAvgUserMood());
 
+        // Initialize StateManager
+        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager(); // this will get the stateManager that initialize in MoodIndexApp application class
+        // After the initialization you can use it to get the variable such as
+        int avgUserMood = stateManager.getAvgUserMood();
+        // Or you can set the value
+        //stateManager.setAvgUserMood(someVal);
     }
 
     @Override

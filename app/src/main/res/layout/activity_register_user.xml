@@ -55,6 +55,7 @@
             android:drawableEnd="@drawable/ic_email_black_foreground"
             android:drawablePadding="5dp"
             android:hint="@string/Reg_email"
+            android:paddingLeft="15dp"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
@@ -116,7 +117,8 @@
             android:hint="@string/Reg_Age"
             android:importantForAutofill="no"
             android:inputType="number"
-            android:minHeight="48dp" />
+            android:minHeight="48dp"
+            android:paddingLeft="15dp"/>
 
         <Button
             android:id="@+id/Reg_User"

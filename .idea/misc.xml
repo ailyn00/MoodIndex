@@ -26,6 +26,7 @@
         <entry key="app/src/main/res/drawable/settings.xml" value="0.18489583333333334" />
         <entry key="app/src/main/res/layout/activity_analytics.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_personal_tracker.xml" value="0.11481481481481481" />
       </map>
     </option>
   </component>

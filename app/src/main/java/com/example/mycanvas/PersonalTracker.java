@@ -25,7 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, SeekBar.OnTouchListener, View.OnClickListener, MyAdapter.OnNoteListener {
+public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener, MyAdapter.OnNoteListener {
 
     // Variables
     private FirebaseServices firebaseServices;
@@ -38,10 +38,6 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     private Button submitBtn;
 
     private Map userMood;
-    private Map userFavStocks;
-
-
-    private LockableScrollView lockableScrollView;
 
     private SeekBar moodBarBefore;
     private TextView pctgBeforeTxt;
@@ -61,8 +57,6 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         // Initialize Variables
         firebaseServices = new FirebaseServices();
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-
-        lockableScrollView = (LockableScrollView) findViewById(R.id.lockableScrollPersonal);
 
         moodBar = findViewById(R.id.moodSeekBar);
         pctgTxt = findViewById(R.id.moodPctTxt);
@@ -167,15 +161,6 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             default:
                 break;
         }
-    }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN)
-            lockableScrollView.setScrollingEnabled(false);
-        else if (event.getAction() == MotionEvent.ACTION_UP)
-            lockableScrollView.setScrollingEnabled(false);
-        return false;
     }
 
     @Override

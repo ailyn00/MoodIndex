@@ -9,10 +9,10 @@ public class MoodColor {
 
         //More colors and conditions can be set
 
-        if (averageMoodIndex>75){
+        if (averageMoodIndex > 0){
             view.setBackgroundResource(R.color.Excited);
         }
-        else if (averageMoodIndex<25){
+        else if (averageMoodIndex< 0){
             view.setBackgroundResource(R.color.Panic);
         }
         else{

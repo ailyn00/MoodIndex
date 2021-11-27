@@ -71,7 +71,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         //Sets Mood bar Color according to average mood
         headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView,stateManager.getAvgUserMood(), StateManager.isMoodSwitchOn());
     }
     @Override
     protected void onResume() {
@@ -84,7 +84,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         fetchUsersMoodVal();
 
         // Change the header color based on mood value
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView,stateManager.getAvgUserMood(), false);
     }
 
     @Override

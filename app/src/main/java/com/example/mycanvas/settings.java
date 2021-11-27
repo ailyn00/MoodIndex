@@ -39,10 +39,16 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         Switch darkTheme = findViewById(R.id.DarkTheme);
         setTheme(darkTheme);
 
+        //Setting
+        Switch moodBarSwitch = findViewById(R.id.MoodColorBarSwitch);
+        MoodBarSwitch(moodBarSwitch);
+
         //Sets Mood bar Color according to average mood
         TextView headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView,stateManager.getAvgUserMood(),StateManager.isMoodSwitchOn());
+
+
 
     }
 
@@ -74,7 +80,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         boolean isNightMode = (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
 
-        SharedPreferences sharedPreferences = getSharedPreferences("SWITCH",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("SWITCHDARK",MODE_PRIVATE);
         _switch.setChecked(sharedPreferences.getBoolean("value",false));
 
         _switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -85,7 +91,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                         recreate();
                     }
-                SharedPreferences.Editor editor = getSharedPreferences("SWITCH",MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCHDARK",MODE_PRIVATE).edit();
                 editor.putBoolean("value",true);
                 editor.apply();
                 _switch.setChecked(true);
@@ -96,12 +102,38 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                         recreate();
                     }
-                SharedPreferences.Editor editor = getSharedPreferences("SWITCH",MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCHDARK",MODE_PRIVATE).edit();
                 editor.putBoolean("value",false);
                 editor.apply();
                 _switch.setChecked(false);
             }
         });
 
+    }
+
+    public void MoodBarSwitch(Switch _switch) {
+
+        SharedPreferences sharedPreferences = getSharedPreferences("SWITCHMOOD",MODE_PRIVATE);
+        _switch.setChecked(sharedPreferences.getBoolean("value",true));
+
+        _switch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if (isChecked){
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCHMOOD",MODE_PRIVATE).edit();
+                editor.putBoolean("value",true);
+                editor.apply();
+                _switch.setChecked(true);
+
+                StateManager.setMoodSwitchOn(true);
+            }else {
+                SharedPreferences.Editor editor = getSharedPreferences("SWITCHMOOD",MODE_PRIVATE).edit();
+                editor.putBoolean("value",false);
+                editor.apply();
+                _switch.setChecked(false);
+
+                StateManager.setMoodSwitchOn(false);
+            }
+
+        });
     }
 }

@@ -66,5 +66,6 @@
     <string name="ContactDev"> Contact Us</string>
 
     <string name="ouremail"> TheAbsurd.one@gmail.com</string>
+    <string name="moodbar">MoodBar</string>
 
 </resources>

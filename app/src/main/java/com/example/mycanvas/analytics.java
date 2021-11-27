@@ -1,7 +1,6 @@
 package com.example.mycanvas;
 
 import static com.example.mycanvas.MoodColor.moodColor;
-import static com.example.mycanvas.StateManager.getAvgUserMood;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,8 +74,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         //Sets Mood bar Color according to average mood
         headerView = findViewById(R.id.header);
-        stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView, StateManager.getAvgUserMood(), StateManager.isMoodSwitchOn());
 
     }
 
@@ -86,7 +83,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
         super.onResume();
 
         // Change header color on resume based on mood
-        moodColor(headerView,stateManager.getAvgUserMood());
+        moodColor(headerView,stateManager.getAvgUserMood(), false);
     }
 
     @Override
@@ -99,7 +96,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                 if (isHaveStocksFav()) {
                     boolean needAdd = addStockInFav(et_stock_quote.getText().toString());
                     if (needAdd) {
-                        firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) stateManager.getUserFavStocks()).get("id"), true, new FirebaseServices.FirebaseServicesListener() {
+                        firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) StateManager.getUserFavStocks()).get("id"), true, new FirebaseServices.FirebaseServicesListener() {
                             @Override
                             public void onError(String msg) {
                                 Toast.makeText(analytics.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
@@ -138,15 +135,13 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     }
 
     //---------- Validations ----------
-    public boolean isHaveStocksFav() { ;
-        if (!stateManager.getUserFavStocks().containsKey("id")) return false;
-        return true;
+    public boolean isHaveStocksFav() {
+        return StateManager.getUserFavStocks().containsKey("id");
     }
 
     public boolean addStockInFav(String name) {
-        ArrayList<String> userFavStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-        if (userFavStocks.indexOf(name) != -1) return false;
-        return true;
+        ArrayList<String> userFavStocks = (ArrayList<String>) ((Map) StateManager.getUserFavStocks()).get("fav_stocks");
+        return userFavStocks.indexOf(name) == -1;
     }
     //---------- Validations ----------
 
@@ -161,12 +156,12 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
     public void setUserFavStock(String name, String docId, String userId, boolean isHavingFav) {
 
         if (isHavingFav) {
-            Map userStockFav = ((Map) stateManager.getUserFavStocks());
+            Map userStockFav = ((Map) StateManager.getUserFavStocks());
             ArrayList<String> oldUserStockFav = (ArrayList<String>) userStockFav.get("fav_stocks");
             oldUserStockFav.add(name);
             userStockFav.remove("fav_stocks");
             userStockFav.put("fav_stocks", oldUserStockFav);
-            stateManager.setUserFavStocks(userStockFav);
+            StateManager.setUserFavStocks(userStockFav);
 
         } else {
             Map userStockFav = new HashMap<>();
@@ -177,7 +172,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
             userStockFav.put("user_id", userId);
             userStockFav.put("fav_stocks", favStocks);
 
-            stateManager.setUserFavStocks(userStockFav);
+            StateManager.setUserFavStocks(userStockFav);
         }
     }
 

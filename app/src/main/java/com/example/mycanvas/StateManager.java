@@ -8,11 +8,15 @@ class StateManager {
     private static Map userFavStocks;
     private static Map userMood;
     static int avgUserMood;
+    private static boolean MoodSwitchOn;
+
+
 
     public StateManager() {
         userFavStocks = new HashMap<>();
         userMood = new HashMap<>();
         avgUserMood = 0;
+        MoodSwitchOn = false;
     }
 
     public static int getAvgUserMood() {
@@ -37,5 +41,13 @@ class StateManager {
 
     public static void setUserMood(Map userMood) {
         StateManager.userMood = userMood;
+    }
+
+    public static boolean isMoodSwitchOn() {
+        return MoodSwitchOn;
+    }
+
+    public static void setMoodSwitchOn(boolean moodSwitchOn) {
+        StateManager.MoodSwitchOn = moodSwitchOn;
     }
 }

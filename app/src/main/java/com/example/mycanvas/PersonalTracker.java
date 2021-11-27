@@ -1,13 +1,11 @@
 package com.example.mycanvas;
 
 import static com.example.mycanvas.MoodColor.moodColor;
-import static com.example.mycanvas.StateManager.getAvgUserMood;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
@@ -16,7 +14,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,7 +85,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         //Sets Mood bar Color according to average mood
         headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
-        moodColor(headerView, stateManager.getAvgUserMood());
+        moodColor(headerView, stateManager.getAvgUserMood(), StateManager.isMoodSwitchOn());
     }
 
     @Override
@@ -101,7 +98,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         fetchFavStocks();
 
         // Change header according to mood color
-        moodColor(headerView, stateManager.getAvgUserMood());
+        moodColor(headerView, stateManager.getAvgUserMood(), false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

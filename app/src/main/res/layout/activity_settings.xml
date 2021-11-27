@@ -82,6 +82,7 @@
 
             android:gravity="center"
             android:text="@string/SignOut"
+            android:textColor="#311B92"
             app:layout_constraintBottom_toTopOf="@+id/bottomViewNavigation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
@@ -114,6 +115,23 @@
             app:layout_constraintHorizontal_bias="0.119"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+        <Switch
+            android:id="@+id/MoodColorBarSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="4dp"
+            android:defaultValue="false"
+            android:minHeight="48dp"
+            android:text="@string/moodbar"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/about"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.783"
+            app:layout_constraintStart_toEndOf="@+id/DarkTheme"
+            app:layout_constraintTop_toBottomOf="@+id/logo" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -5,7 +5,7 @@
     android:id="@+id/night"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".settings">
+    tools:context=".SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -102,7 +102,7 @@
 
         </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        <Switch
+            <Switch
             android:id="@+id/DarkTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

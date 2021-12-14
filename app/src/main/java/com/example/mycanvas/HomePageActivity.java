@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Map;
 
-public class HomePage extends AppCompatActivity implements View.OnClickListener{
+    public class HomePageActivity extends AppCompatActivity implements View.OnClickListener{
     private StateManager stateManager;
     private FirebaseServices firebaseServices = new FirebaseServices();
 
@@ -65,7 +65,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
         bottomNavigationView.setSelectedItemId(R.id.homePage);
 
-        Navigation navigation = new Navigation(HomePage.this, bottomNavigationView);
+        Navigation navigation = new Navigation(HomePageActivity.this, bottomNavigationView);
         navigation.initializeNavBar();
 
         //Sets Mood bar Color according to average mood
@@ -100,7 +100,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                     @Override
                     public void onSuccess(Object response) {
                         System.out.println(response);
-                        startActivity(new Intent(HomePage.this, Login.class));
+                        startActivity(new Intent(HomePageActivity.this, Login.class));
                     }
                 });
                 break;
@@ -113,7 +113,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         firebaseServices.isLoggedIn(new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(HomePage.this, "Failed to check authentication! Please check your credentials", Toast.LENGTH_LONG).show();
+                Toast.makeText(HomePageActivity.this, "Failed to check authentication! Please check your credentials", Toast.LENGTH_LONG).show();
                 isLogged = false;
             }
 
@@ -121,7 +121,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
             public void onSuccess(Object response) {
                 isLogged = (boolean) response;
                 if(!isLogged){
-                    startActivity(new Intent(HomePage.this, Login.class));
+                    startActivity(new Intent(HomePageActivity.this, Login.class));
                 }
             }
         });
@@ -131,7 +131,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         firebaseServices.usersMoodAverage(new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(HomePage.this, "Failed to fetch average user mood for today, please try again later...", Toast.LENGTH_LONG).show();
+                Toast.makeText(HomePageActivity.this, "Failed to fetch average user mood for today, please try again later...", Toast.LENGTH_LONG).show();
                 avgUserMood = 0;
             }
 
@@ -153,7 +153,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
         firebaseServices.usersMoodAverageBefore(daysBefore, new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(HomePage.this, "Failed to fetch average users mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
+                Toast.makeText(HomePageActivity.this, "Failed to fetch average users mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
                 avgUserMoodBefore = 0;
             }
 
@@ -178,7 +178,7 @@ public class HomePage extends AppCompatActivity implements View.OnClickListener{
                 new FirebaseServices.FirebaseServicesListener() {
                     @Override
                     public void onError(String msg) {
-                        Toast.makeText(HomePage.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

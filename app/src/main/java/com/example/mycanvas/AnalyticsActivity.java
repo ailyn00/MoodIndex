@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class analytics extends AppCompatActivity implements View.OnClickListener {
+public class AnalyticsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseServices firebaseServices;
     private RequestService requestService;
@@ -44,11 +44,11 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
         bottomNavigationView.setSelectedItemId(R.id.analytics);
-        Navigation navigation = new Navigation(analytics.this, bottomNavigationView);
+        Navigation navigation = new Navigation(AnalyticsActivity.this, bottomNavigationView);
         navigation.initializeNavBar();
 
         firebaseServices = new FirebaseServices();
-        requestService = new RequestService(analytics.this);
+        requestService = new RequestService(AnalyticsActivity.this);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
 
         et_stock_quote = findViewById(R.id.et_stock); // Input Fields
@@ -99,31 +99,31 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                         firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), (String) ((Map) StateManager.getUserFavStocks()).get("id"), true, new FirebaseServices.FirebaseServicesListener() {
                             @Override
                             public void onError(String msg) {
-                                Toast.makeText(analytics.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AnalyticsActivity.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onSuccess(Object response) {
                                 setUserFavStock(et_stock_quote.getText().toString(), "", "", true);
-                                Toast.makeText(analytics.this, "Successfully add symbol to the watchlist!", Toast.LENGTH_LONG).show();
+                                Toast.makeText(AnalyticsActivity.this, "Successfully add symbol to the watchlist!", Toast.LENGTH_LONG).show();
                                 addFavStockBtn.setEnabled(false);
                             }
                         });
                     } else {
-                        Toast.makeText(analytics.this, "You already have this stock in your watchlist!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AnalyticsActivity.this, "You already have this stock in your watchlist!", Toast.LENGTH_LONG).show();
                     }
                 } else {
                     firebaseServices.addUserFavStock(et_stock_quote.getText().toString(), "", false, new FirebaseServices.FirebaseServicesListener() {
                         @Override
                         public void onError(String msg) {
-                            Toast.makeText(analytics.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AnalyticsActivity.this, "You failed to add stock to the watchlist!", Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onSuccess(Object response) {
                             Map res = (Map) response;
                             setUserFavStock(et_stock_quote.getText().toString(), (String) res.get("id"), (String) res.get("user_id"), false);
-                            Toast.makeText(analytics.this, "You are successfully add stock symbol to your watchlist!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(AnalyticsActivity.this, "You are successfully add stock symbol to your watchlist!", Toast.LENGTH_LONG).show();
                             addFavStockBtn.setEnabled(false);
                         }
                     });
@@ -196,7 +196,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
                     @Override
                     public void onError(String error) {
                         addFavStockBtn.setEnabled(false);
-                        Toast.makeText(analytics.this, error, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AnalyticsActivity.this, error, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -216,7 +216,7 @@ public class analytics extends AppCompatActivity implements View.OnClickListener
             requestService.getStockQuote(name, high_price, low_price, open_price, previous_price, current_price, tick, changes, percent, new RequestService.StockQuoteListener() {
                 @Override
                 public void onError(String error) {
-                    Toast.makeText(analytics.this, error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AnalyticsActivity.this, error, Toast.LENGTH_SHORT).show();
                     addFavStockBtn.setEnabled(false);
                 }
 

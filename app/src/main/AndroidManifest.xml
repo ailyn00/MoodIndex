@@ -11,15 +11,15 @@
         android:theme="@style/Theme.MyCanvas"
         android:name=".MoodIndexApp"
         android:configChanges="uiMode">
-        <activity android:name=".analytics"
+        <activity android:name=".AnalyticsActivity"
             android:configChanges="uiMode"
             />
-        <activity android:name=".settings"
+        <activity android:name=".SettingsActivity"
             android:exported="true"
             android:configChanges="uiMode"
             />
         <activity
-            android:name=".HomePage"
+            android:name=".HomePageActivity"
             android:exported="true"
             android:configChanges="uiMode"
             />
@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PersonalTracker"
+            android:name=".PersonalTrackerActivity"
             android:exported="true"
             android:configChanges="uiMode"/>
     </application>

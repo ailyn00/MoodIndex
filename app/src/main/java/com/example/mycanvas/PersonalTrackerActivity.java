@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener, MyAdapter.OnNoteListener {
+public class PersonalTrackerActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, View.OnClickListener, MyAdapter.OnNoteListener {
 
     // Variables
     private FirebaseServices firebaseServices;
@@ -70,7 +70,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
 
         // Initialize RecyclerView
         watchListView = (RecyclerView) this.findViewById(R.id.watchListView);
-        watchListView.setLayoutManager(new LinearLayoutManager(PersonalTracker.this, LinearLayoutManager.VERTICAL, false));
+        watchListView.setLayoutManager(new LinearLayoutManager(PersonalTrackerActivity.this, LinearLayoutManager.VERTICAL, false));
         watchListView.setAdapter(new MyAdapter());
 
 
@@ -79,7 +79,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         fetchFavStocks();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
         bottomNavigationView.setSelectedItemId(R.id.personalTracker);
-        Navigation navigation = new Navigation(PersonalTracker.this, bottomNavigationView);
+        Navigation navigation = new Navigation(PersonalTrackerActivity.this, bottomNavigationView);
         navigation.initializeNavBar();
 
         //Sets Mood bar Color according to average mood
@@ -149,7 +149,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                     public void onSuccess(Object response) {
                         userMood = (Map) response;
                         stateManager.setUserMood((Map) response);
-                        Toast.makeText(PersonalTracker.this, "Successfully submit your mood today!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(PersonalTrackerActivity.this, "Successfully submit your mood today!", Toast.LENGTH_LONG).show();
                         Log.d("[FIREBASE SERVICE]", "Show Response" + userMood.toString());
                     }
                 });
@@ -163,7 +163,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
     @Override
     public void oNoteClick(int position) {
         ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-        Intent intent = new Intent(this, analytics.class);
+        Intent intent = new Intent(this, AnalyticsActivity.class);
         intent.putExtra("some", favStocks.get(position));
         startActivity(intent);
     }
@@ -185,7 +185,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 userFavStock.put("fav_stocks", favStocks);
 
                 stateManager.setUserFavStocks(userFavStock);
-                MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
+                MyAdapter myAdapter = new MyAdapter(PersonalTrackerActivity.this, favStocks, PersonalTrackerActivity.this);
                 watchListView.setAdapter(myAdapter);
             }
         });
@@ -212,7 +212,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
             @Override
             public void onError(String msg) {
                 userMood = null;
-                Toast.makeText(PersonalTracker.this, msg, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PersonalTrackerActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -226,7 +226,7 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
         firebaseServices.userMoodFetchBefore(daysBefore, new FirebaseServices.FirebaseServicesListener() {
             @Override
             public void onError(String msg) {
-                Toast.makeText(PersonalTracker.this, "Failed to fetch average user mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
+                Toast.makeText(PersonalTrackerActivity.this, "Failed to fetch average user mood for n days before, please try again later...", Toast.LENGTH_LONG).show();
                 usrAvgMoodVal = 0;
                 stateManager.setAvgUserMood(usrAvgMoodVal);
             }
@@ -261,14 +261,14 @@ public class PersonalTracker extends AppCompatActivity implements SeekBar.OnSeek
                 new FirebaseServices.FirebaseServicesListener() {
                     @Override
                     public void onError(String msg) {
-                        Toast.makeText(PersonalTracker.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PersonalTrackerActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onSuccess(Object response) {
                         stateManager.setUserFavStocks((Map) response);
                         ArrayList<String> favStocks = (ArrayList<String>) ((Map) stateManager.getUserFavStocks()).get("fav_stocks");
-                        MyAdapter myAdapter = new MyAdapter(PersonalTracker.this, favStocks, PersonalTracker.this);
+                        MyAdapter myAdapter = new MyAdapter(PersonalTrackerActivity.this, favStocks, PersonalTrackerActivity.this);
                         watchListView.setAdapter(myAdapter);
                     }
                 }

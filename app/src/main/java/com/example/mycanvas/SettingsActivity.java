@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class settings extends AppCompatActivity implements View.OnClickListener {
+public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseServices firebaseServices = new FirebaseServices();
     StateManager stateManager;
@@ -29,7 +29,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomViewNavigation);
         bottomNavigationView.setSelectedItemId(R.id.settings);
-        Navigation navigation = new Navigation(settings.this, bottomNavigationView);
+        Navigation navigation = new Navigation(SettingsActivity.this, bottomNavigationView);
         navigation.initializeNavBar();
 
         Button SignOut = findViewById(R.id.SignOut);
@@ -37,18 +37,16 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
         //Setting Theme ---------------------------------------------------
         Switch darkTheme = findViewById(R.id.DarkTheme);
-        setTheme(darkTheme);
+        darkModeSwitch(darkTheme);
 
         //Setting
         Switch moodBarSwitch = findViewById(R.id.MoodColorBarSwitch);
-        MoodBarSwitch(moodBarSwitch);
+        moodBarSwitch(moodBarSwitch);
 
         //Sets Mood bar Color according to average mood
         TextView headerView = findViewById(R.id.header);
         stateManager = ((MoodIndexApp) getApplicationContext()).getStateManager();
         moodColor(headerView,stateManager.getAvgUserMood(),StateManager.isMoodSwitchOn());
-
-
 
     }
 
@@ -67,7 +65,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
                     @Override
                     public void onSuccess(Object response) {
                         Log.d("[Firebase Service]", "Successfully to log out from the application.");
-                        startActivity(new Intent(settings.this, Login.class));
+                        startActivity(new Intent(SettingsActivity.this, Login.class));
                     }
                 });
                 break;
@@ -76,7 +74,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    public void setTheme(Switch _switch) {
+    public void darkModeSwitch(Switch _switch) {
 
         boolean isNightMode = (this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
 
@@ -111,7 +109,7 @@ public class settings extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public void MoodBarSwitch(Switch _switch) {
+    public void moodBarSwitch(Switch _switch) {
 
         SharedPreferences sharedPreferences = getSharedPreferences("SWITCHMOOD",MODE_PRIVATE);
         _switch.setChecked(sharedPreferences.getBoolean("value",true));

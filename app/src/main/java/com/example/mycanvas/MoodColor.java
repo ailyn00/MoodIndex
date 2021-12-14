@@ -9,7 +9,7 @@ public class MoodColor {
 
         //More colors and conditions can be set
 
-        if (isOn) {     //If moodbar switch is on do...else do nothing
+        if (isOn) {     //If moodbar switch is on, do..., else do nothing
 
             if (averageMoodIndex > 74) {
                 view.setBackgroundResource(R.color.Excited);

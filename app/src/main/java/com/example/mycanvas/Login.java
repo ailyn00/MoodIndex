@@ -135,7 +135,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onSuccess(Object response) {
-                startActivity(new Intent(com.example.mycanvas.Login.this, HomePage.class));
+                startActivity(new Intent(com.example.mycanvas.Login.this, HomePageActivity.class));
             }
         });
 
@@ -155,7 +155,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             public void onSuccess(Object response) {
                 isLogged = (boolean) response;
                 if(isLogged){
-                    startActivity(new Intent(com.example.mycanvas.Login.this, HomePage.class));
+                    startActivity(new Intent(com.example.mycanvas.Login.this, HomePageActivity.class));
                 }
             }
         });
